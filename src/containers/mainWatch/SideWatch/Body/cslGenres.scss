@@ -1,0 +1,47 @@
+.csl-genres{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top:420px;
+    left: 0px;
+    .genres-detail{
+        // border: 5px solid gray;
+        padding-left: 10px;
+        width: auto;
+        height: auto;
+        left: 0px;
+        z-index: 0;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+        transition: all 0.5s ease-in-out;
+        .details-genres{
+            color: white;
+            width: 180px;
+            height: 120px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-size: 18px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0px 1px 0px 200px rgba(0,0,0,0.8) inset;
+            .name-genres{
+                width: 100%;
+                margin: 0px auto;
+                cursor: pointer;
+                &:hover{
+                    color:#07b8a0 ;
+                }
+            }
+            
+        }
+    }
+}

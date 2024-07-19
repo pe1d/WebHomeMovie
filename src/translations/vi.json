@@ -1,0 +1,83 @@
+{
+    "about": {
+        "login": "Đăng Nhập",
+        "title-banner": "Chương trình truyền hình, phim không giới hạn và nhiều nội dung khác",
+        "p1-banner": "Xem ở mọi nơi. Hủy bất kỳ lúc nào.",
+        "p2-banner": "Bạn đã sẵn sàng xem chưa? Nhập email để tạo hoặc kích hoạt lại tư cách thành viên của bạn.",
+        "get-started": "Bắt đầu",
+        "placeholder-email": "Nhập địa chỉ email",
+        "details-1": "Tải xuống nội dung để xem ngoại tuyến",
+        "sub-details-1": "Lưu lại những nội dung yêu thích một cách dễ dàng và luôn có thứ để xem.",
+        "details-2": "Tạo hồ sơ cho trẻ em",
+        "sub-details-2": "Đưa các em vào những cuộc phiêu lưu với nhân vật được yêu thích trong một không gian riêng. Tính năng này đi kèm miễn phí với tư cách thành viên của bạn."
+    },
+    "footer": {
+        "title": "2024 Peid. Để biết thêm thông tin, xin vui lòng xem github của tôi.",
+        "sub": "Tại đây"
+    },
+    "login": {
+        "sign-in": "Đăng Nhập",
+        "input-email-title": "Địa chỉ email",
+        "placeholder-email": "Nhập địa chỉ email",
+        "input-password-title": "Mật khẩu",
+        "placeholder-password": "Nhập mật khẩu",
+        "btn-sign-in": "Đăng nhập",
+        "forgot-password": "Quên mật khẩu",
+        "title-reg": "Không phải thành viên? ",
+        "reg": "Đăng ký",
+        "more-way-sign-in": "hoặc đăng nhập với:"
+    },
+    "main": {
+        "head": {
+            "movie": "Phim lẻ",
+            "tv-series": "Phim bộ",
+            "anime": "Hoạt hình"
+        },
+        "banner": {
+            "btn-watchlist": "Xem sau",
+            "btn-watch": "Xem ngay"
+        },
+        "content": {
+            "popular-movies": "Phổ biến tại HomeMovies",
+            "toprated-movies": "Đánh giá cao tại HomeMovies"
+        }
+    },
+    "sider-info": {
+        "menu": "Danh mục",
+        "home": "Trang chủ",
+        "discover": "Khám phá",
+        "award": "Giải thưởng",
+        "celeb": "Diễn viên",
+        "library": "Thư viện",
+        "recent": "Đã xem",
+        "top-rated": "Đánh giá cao",
+        "download": "Tải xuống",
+        "playlist": "Yêu thích",
+        "watchlist": "Xem sau",
+        "completed": "Hoàn thành",
+        "general": "Chung",
+        "settings": "Cài đặt",
+        "logout": "Đăng xuất"
+    },
+    "sider-watch": {
+        "drop": "Bỏ",
+        "watch": "Xem",
+        "see-more": "Xem thêm",
+        "continue": "Tiếp tục",
+        "top-rated": "Đánh giá cao",
+        "genres": "Thể loại"
+    },
+    "dMoviePage": {
+        "watch": "Xem Ngay",
+        "hours": "giờ",
+        "minutes": "phút",
+        "share": "Chia sẻ",
+        "watchlist": "Xem sau",
+        "director": "Đạo diễn",
+        "writer": "Kịch bản",
+        "nation": "Quốc gia",
+        "release-date": "Khởi chiếu",
+        "actor": "Diễn viên",
+        "trailer": "Trailers"
+    }
+}

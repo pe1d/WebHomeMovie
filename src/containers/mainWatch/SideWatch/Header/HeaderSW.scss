@@ -1,0 +1,152 @@
+.btn-noti{
+    font-size: 24px;
+    background-color: #4d5257;
+    width: 40px;
+    height: 40px;
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 5;
+    .btn-badge{
+        background: #FF5D5D;
+        color: white;
+        font-size: 12px;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding:  3px 10px;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+        transition: all 0.5s ease-out ;
+    }  
+    @keyframes pulse {
+        0% {transform: scale(1);}
+        50% {transform: scale(1.2);} 
+        100% {transform: scale(1);}
+    }   
+    &:hover > .box-noti {
+        height:30vh;
+    }
+    &:hover > .btn-badge{
+        animation: none;
+    }
+    .box-noti{
+        width: 400px;
+        height: 0px;
+        border-radius: 10px;
+        background-color: white;
+        position: absolute;
+        top: 40px;
+        right: 0px;
+        overflow-y: scroll;
+        transition: all ease-in-out .5s;
+        .sec{
+            padding: 25px 10px;
+            transition: 0.5s;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-bottom: 1px solid #4d5257;
+            color: black;
+            gap: 20px;
+            position: relative;
+            &:hover{
+                background-color: #BFBFBF;
+            }
+            .profile{
+                width: 75px;
+                height: 75px;
+                background-color: black;
+                border-radius: 50%;
+            }
+            .profCont{
+                .txt{
+                    vertical-align: top;
+                    font-size: 1.25rem;
+                    padding: 5px 10px 0px 15px;
+                }
+                .sub{
+                    font-size: 1rem;
+                    color: grey;
+                }
+            }    
+            .delete-noti{
+                padding-left: 10px;
+                cursor: pointer;
+                z-index: 2;
+            }  
+            .new{
+                position: absolute;
+                top:0px;
+                right: 5px;
+                color: red;
+                font-size: 14px;
+            }                            
+        }
+    }
+}
+.user{
+    width: auto;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .name{
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .more-info{
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .logo{
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: white;
+    }
+}
+
+.Modal-1{
+    width: fit-content;
+    position: absolute;
+	top: 10%;
+	right: 12%;   
+    
+}
+.Overlay-1{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    border: none;
+}
+// .box-noti::-webkit-scrollbar-track
+// {
+// 	// -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//     background-color: none;
+//     border-radius: 5px
+// }
+// .box-noti::-webkit-scrollbar
+// {
+// 	width: 10px;
+// 	background-color: #a4a5a7;
+//     border-radius: 5px
+// }
+// .box-noti::-webkit-scrollbar-thumb
+// {
+// 	background-color: rgba(0, 0, 0, 0.8);
+// 	// border: 2px solid black;
+//     border-radius: 5px;
+//     position: absolute;
+// }

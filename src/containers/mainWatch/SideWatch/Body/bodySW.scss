@@ -1,0 +1,31 @@
+.disable{
+    pointer-events: none;
+    color: #636571;
+}
+.title-body{
+    // border: 5px solid green;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 14px;
+    padding: 10px;
+    .p1, .p2{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        i{
+            cursor: pointer;
+            &:hover{
+                color: #00bab3;
+            }
+        }
+    }
+    .p2{
+        cursor: pointer;
+        &:hover{
+            color: #00bab3;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+
+
+.login-background{
+    background-image: url('../../assets/images/banner.jpg');
+    box-shadow: inset rgba(0, 0, 0, 1) 0px 0px 800px 50px, inset rgb(0, 0, 0) 0px 0px 800px 50px, inset rgba(0, 0, 0, 1) 0px 0px 720px -480px;
+    filter: brightness(80%);
+    height: 100vh;
+    .login-container {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 400px;
+        margin:auto;
+        border-radius: 10px;
+        padding: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 450px;
+        color: white;
+        .login-content{
+            padding: 10px;
+            h1{
+                font-weight:600;
+            }
+            .btn-signin{
+                width: 100%;
+                margin: 10px auto;
+                background-color: #07b8a0;
+                border: none;
+            }
+            .login-input{
+                width: 100%;
+                margin: 0px auto;
+                margin-bottom: 10px;
+                .input-group{
+                    input{
+                        border-radius: 2px !important;
+                        background-color: #232323;
+                        color: white;
+                        opacity: 70%;
+                        &::placeholder {
+                            color: white;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }   
+        }
+        
+    }
+}

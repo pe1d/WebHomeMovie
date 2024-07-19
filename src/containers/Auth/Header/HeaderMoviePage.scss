@@ -1,0 +1,182 @@
+.headerMoviePage{
+    width: 100%;
+    height: auto;
+    z-index: 3;
+    // background-color: #17181c9a;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    transition: all ease-out 0.5s;
+    color: white;
+    .content-left{
+        width: 12%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .btn-menu{
+            height: auto;
+            width: 73%;
+            font-size: 20px;
+            display:flex ;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            &:hover{
+                background-color: #85878d7c;
+            }
+            // i:hover{
+            //     background-color: aqua;
+            // }
+        }
+        .name-brand{
+            background-image: url('../../../assets/images/HomeMoviestext.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100px;
+            height: 80px;
+            margin-top: 20px;
+            cursor: pointer;
+        }     
+    } 
+    .content-center{
+        height: 80px;
+        width: 73%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .menu-movie{
+            padding-left: 20px;
+            height: 100%;
+            width: 500px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            .name-menu{
+                padding: 10px;
+                font-size: 18px;
+                width: auto;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                text-align: center;
+                &:hover{
+                    background-color: #00bab471;
+                }
+            }
+        }
+        .content-2{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header-search{
+            // height: auto;
+            // padding: 20px;
+            position: relative;
+            margin-right:20px ;
+            // color: white;
+            .fa-search{
+                position: absolute;
+                top:20px;
+                left: 20px;
+                color: #6c6e77;
+                font-size: 18px;
+                cursor: pointer;
+            }
+            span{
+                position: absolute;
+                right: 17px;
+                top: 13px;
+                padding: 2px;
+                border-left: 1px solid #6c6e77;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            .left-pan{
+                color: #6c6e77;
+                padding-left: 7px;
+                cursor: pointer;
+                i{
+               
+                    padding-left: 10px;
+                 }
+            }
+            .form-input{
+                color: white;
+                background-color: #21232f;
+                width: 350px;   
+                height: 55px;
+                padding-right: 60px;
+                padding-left: 50px;
+                border-radius: 10px;
+                border: none;
+                font-size: 16px;
+                &:focus{
+                    box-shadow: none;
+                    outline: none;
+                }
+            }
+        } 
+    }
+    .content-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 15%;
+        .user{
+            width: auto;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            .name{
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .more-info{
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            .logo{
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                background-color: white;
+            }
+        }
+    }
+}
+.bg-solid{
+    background-color: #17181cc5;
+}
+@media only screen and (max-width: 1024px) {
+    .menu-movie{
+        display: none !important;
+    }
+    .name-brand{
+        display: none;
+    }
+    .header-search{
+        .form-input{
+            width: 200px !important;
+        }
+    }
+    .user{
+        display: none !important;
+    }
+}
+

@@ -1,0 +1,80 @@
+.content-list-main{
+    width: 100%;
+    .name-section-movie{
+        color: white;
+        font-size: 26px;
+        font-weight: 700;
+        padding-bottom:20px;
+        padding-top:40px;
+    }
+    .section-movie{     
+        box-shadow: inset rgba(0, 0, 0, 1) 0px 0px 100px 0px, inset rgb(0, 0, 0) 0px 0px 100px 20px, inset rgba(0, 0, 0, 1) 0px 0px 120px -180px;
+        border-radius: 10px;
+        width: 200px;
+        height: 300px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0px auto;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        // transition: all 0.2s ease-in;
+        // position: relative;
+        .content-up{
+            .name-film{
+                padding: 20px 20px 0px 20px;
+                font-size: medium;
+                color: white;
+                font-weight: 600;
+            }
+            .vote-average{
+                padding-left: 20px;
+            }
+        }
+        .content-down{
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            .watch-now{
+                height: 40px;
+                width: 120px; 
+                background-color: #00bab4bb;
+                border-radius: 10px;
+                color: black;
+                font-size: 16px;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-weight: 700;
+                &:hover{
+                    background-color: #00bab3;
+                }
+            }
+            .favorites-list{
+                height: 40px;
+                width: 40px;
+                border-radius: 10px;
+                background-color: #455a53b2;
+                opacity: 0.75;
+                cursor: pointer;
+                font-size: 24px;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                &:hover{
+                    background-color:#455a53;
+                }
+            }
+        }   
+        // &:hover{
+        //     width: 220px;
+        //     height: 320px;
+        // }         
+    }
+    
+}  

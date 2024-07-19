@@ -1,0 +1,83 @@
+{
+    "about": {
+        "login": "Sign in",
+        "title-banner": "Unlimited movies, TV shows, and more",
+        "p1-banner": "Watch anywhere. Cancel anytime.",
+        "p2-banner": "Ready to watch? Enter your email to create or restart your membership.",
+        "get-started": "Get Started",
+        "placeholder-email": "Your email",
+        "details-1": "Download your shows to watch offline",
+        "sub-details-1": "Save your favorites easily and always have something to watch.",
+        "details-2": "Create profiles for kids",
+        "sub-details-2": "Send kids on adventures with their favorite characters in a space made just for them—free with your membership."
+    },
+    "footer": {
+        "title": "2024 Peid. More information, please visit my github.",
+        "sub": "Click here"
+    },
+    "login": {
+        "sign-in": "Sign In",
+        "input-email-title": "Email address",
+        "placeholder-email": "Your email",
+        "input-password-title": "Password",
+        "placeholder-password": "Your password",
+        "btn-sign-in": "Sign In",
+        "forgot-password": "Forgot password",
+        "title-reg": "Not a member? ",
+        "reg": "Register",
+        "more-way-sign-in": "or sign in up:"
+    },
+    "main": {
+        "head": {
+            "movie": "Movie",
+            "tv-series": "TV Series",
+            "anime": "Anime"
+        },
+        "banner": {
+            "btn-watchlist": "Watchlist",
+            "btn-watch": "Watch now"
+        },
+        "content": {
+            "popular-movies": "Popular on HomeMovies",
+            "toprated-movies": "Top Rated on HomeMovies"
+        }
+    },
+    "sider-info": {
+        "menu": "Menu",
+        "home": "Home",
+        "discover": "Discover",
+        "award": "Awards",
+        "celeb": "Celebrities",
+        "library": "Library",
+        "recent": "Recent",
+        "top-rated": "Top Rated",
+        "download": "Downloaded",
+        "playlist": "Playlist",
+        "watchlist": "Watchlist",
+        "completed": "Completed",
+        "general": "General",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
+    "sider-watch": {
+        "drop": "Drop",
+        "watch": "Watch",
+        "see-more": "See more",
+        "continue": "Continue",
+        "top-rated": "Top Rated",
+        "genres": "Genres"
+    },
+    "dMoviePage": {
+        "watch": "Watch now",
+        "hours": "hour",
+        "minutes": "minutes",
+        "share": "Share",
+        "watchlist": "Watchlist",
+        "director": "Director",
+        "writer": "Writer",
+        "nation": "Nation",
+        "release-date": "Release date",
+        "actor": "Actors",
+        "trailer": "Trailers"
+    }
+}
