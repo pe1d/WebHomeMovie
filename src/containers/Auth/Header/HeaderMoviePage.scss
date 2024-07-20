@@ -86,7 +86,7 @@
             // color: white;
             .fa-search{
                 position: absolute;
-                top:20px;
+                top:10px;
                 left: 20px;
                 color: #6c6e77;
                 font-size: 18px;
@@ -95,7 +95,7 @@
             span{
                 position: absolute;
                 right: 17px;
-                top: 13px;
+                top: 7px;
                 padding: 2px;
                 border-left: 1px solid #6c6e77;
                 cursor: pointer;
@@ -106,23 +106,26 @@
                 padding-left: 7px;
                 cursor: pointer;
                 i{
-               
                     padding-left: 10px;
                  }
             }
             .form-input{
                 color: white;
-                background-color: #21232f;
+                background-color: #17181c;
                 width: 350px;   
-                height: 55px;
+                height: 40px;
                 padding-right: 60px;
                 padding-left: 50px;
                 border-radius: 10px;
-                border: none;
+                border: 2px solid #21232f;
                 font-size: 16px;
                 &:focus{
                     box-shadow: none;
                     outline: none;
+                    border: 2px solid #00bab3;
+                }
+                &::placeholder {
+                    color: rgb(155, 147, 147);
                 }
             }
         } 

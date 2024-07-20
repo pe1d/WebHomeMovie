@@ -28,7 +28,8 @@ function HeaderSW(props) {
     const handleCloseModal = () => {
         setModal(false)
     }
-    const handleDeleteNotice = (noti) => {
+    const handleDeleteNotice = (noti, event) => {
+        event.stopPropagation();
         const newNoti = noticeList.filter((item) => {
             console.log('check item', item);
             return item.id !== noti.id;
@@ -36,7 +37,7 @@ function HeaderSW(props) {
         setNoticeList(newNoti)
     }
     const handleClickONnotice = (noti) => {
-        let newNotice = noticeList.map((item) => {
+        const newNotice = noticeList.map((item) => {
             if (item.id == noti.id && noti.status == 'N') {
                 item.status = 'O';
             }
@@ -44,41 +45,37 @@ function HeaderSW(props) {
         })
         setNoticeList(newNotice)
     }
+    const checkNewNoti = () => {
+        let allNotice = noticeList.filter((e) => {
+            return e.status == 'N'
+        }).length;
+        console.log(allNotice);
+        return allNotice
+    }
     return (
         <>
             <div typeof='button' className='btn-noti' onClick={() => handleOpenModal()} >
-                {noticeList && noticeList.length > 0 &&
-                    noticeList.map((item, index) => {
-                        let allNotice = noticeList.filter((e) => {
-                            return e.status == 'N'
-                        }).length;
-                        if (allNotice == 0) {
-                            return
-                        }
-                        return (
-                            < div class="btn-badge pulse-button">{allNotice}</div>
-                        )
-                    })
-                }
+                < div class="btn-badge pulse-button">{checkNewNoti()}</div>
                 <i className="fas fa-bell" ></i>
                 <div className='box-noti'>
                     {noticeList && noticeList.length > 0 &&
                         noticeList.map((item, index) => {
                             return (
-                                <div class="sec" key={index} onClick={() => handleClickONnotice(item)} >
-                                    <div className='delete-noti' onClick={() => handleDeleteNotice(item)} >
-                                        <i className="far fa-times-circle"></i>
+                                <div class="sec" key={index} onClick={() => handleClickONnotice(item)}>
+
+                                    <div className='new' >
+                                        {item.status && item.status === 'N' &&
+                                            <i class="fas fa-circle"></i>
+                                        }
                                     </div>
                                     <div className='profile'></div>
                                     <div class="profCont">
                                         <div class="txt">{item.title}</div>
                                         <div class="txt sub">{new Date(item.date * 1000).toLocaleString()}</div>
                                     </div>
-                                    {item.status && item.status === 'N' &&
-                                        <div className='new' >
-                                            <i class="fas fa-circle"></i>
-                                        </div>
-                                    }
+                                    <div className='delete-noti' onClick={(event) => handleDeleteNotice(item, event)}>
+                                        <i className="fas fa-times" ></i>
+                                    </div>
                                 </div>
                             )
                         })
@@ -91,17 +88,6 @@ function HeaderSW(props) {
                 <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }}>
                 </div>
             </div>
-
-            {/* <ReactModal
-                isOpen={modal}
-                contentLabel="noti-box"
-                onRequestClose={handleCloseModal}
-                shouldCloseOnOverlayClick={true}
-                className="Modal-1"
-                overlayClassName="Overlay-1"
-            > */}
-            {/* 
-            </ReactModal> */}
         </>
     )
 }
