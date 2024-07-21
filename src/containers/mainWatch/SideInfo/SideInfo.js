@@ -2,10 +2,10 @@ import React, { Component, Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './SideInfo.scss'
 import * as actions from "../../../store/actions";
-import { LANGUAGES } from '../../../untils';
 import '../../Auth/About.scss'
 import Menu from './Menu/Menu';
 import SubMenu from './Menu/SubMenu';
+import Scrollbars from 'react-custom-scrollbars';
 function SideInfo(props) {
     const [menu, setMenu] = useState(false)
     useEffect(() => {

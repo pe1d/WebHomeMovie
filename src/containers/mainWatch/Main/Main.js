@@ -5,19 +5,16 @@ import * as actions from "../../../store/actions";
 import SideInfo from '../SideInfo/SideInfo';
 import ListMain from '../ListMain/ListMain';
 import SideWatch from '../SideWatch/SideWatch';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { LANGUAGES } from '../../../untils';
-import { FormattedMessage } from 'react-intl';
-import HeaderSW from '../SideWatch/Header/HeaderSW.js';
 import HeaderMoviePage from '../../Auth/Header/HeaderMoviePage.js';
+const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height
+    };
+}
 function Main(props) {
     const [header, setHeader] = useState('header-main')
-    const styleOn = {
-        width: '5%'
-    }
-    const styleOff = {
-        width: '10%'
-    }
     const handleScroll = () => {
         if (window.scrollY > 80) {
             setHeader('header-main bg-solid')
@@ -33,8 +30,7 @@ function Main(props) {
     return (
         <>
             <div className='container-main bg-main'>
-                <HeaderMoviePage
-                />
+                <HeaderMoviePage />
                 <div className='body-main'>
                     <div className={side == false ? 'side1 bg-side' : 'side1 bg-side on-side'} >
                         <SideInfo />

@@ -6,6 +6,7 @@ import * as actions from "../../../../store/actions";
 import { LANGUAGES } from '../../../../untils';
 import ReactModal from 'react-modal';
 import Scrollbars from 'react-custom-scrollbars';
+import LazyLoad from 'react-lazyload';
 
 function HeaderSW(props) {
     const [noticeList, setNoticeList] = useState([
@@ -15,7 +16,11 @@ function HeaderSW(props) {
         { id: '4', title: 'notice 4', date: 1716376619, status: 'N' },
         { id: '5', title: 'notice 5', date: 1708600619, status: 'N' },
         { id: '6', title: 'notice 6', date: 1716376619, status: 'O' },
-        { id: '7', title: 'notice 7', date: 1708600619, status: 'N' }
+        { id: '7', title: 'notice 7', date: 1708600619, status: 'N' },
+        { id: '8', title: 'notice 4', date: 1716376619, status: 'N' },
+        { id: '9', title: 'notice 5', date: 1708600619, status: 'N' },
+        { id: '10', title: 'notice 6', date: 1716376619, status: 'O' },
+        { id: '11', title: 'notice 7', date: 1708600619, status: 'N' }
     ])
     const [modal, setModal] = useState(false)
     const [user, setUser] = useState({
@@ -57,30 +62,49 @@ function HeaderSW(props) {
             <div typeof='button' className='btn-noti' onClick={() => handleOpenModal()} >
                 < div class="btn-badge pulse-button">{checkNewNoti()}</div>
                 <i className="fas fa-bell" ></i>
-                <div className='box-noti'>
-                    {noticeList && noticeList.length > 0 &&
-                        noticeList.map((item, index) => {
-                            return (
-                                <div class="sec" key={index} onClick={() => handleClickONnotice(item)}>
+                <div className='container-noti'>
+                    <div className='header-noti'>
+                        <div className='name-header'>
+                            Thông báo
+                        </div>
+                        <div className='settings-header'>
+                            <i className="fas fa-cog"></i>
+                        </div>
+                    </div>
+                    <div className='box-noti'>
+                        {/* <Scrollbars style={{ height: '100vh', width: 'auto' }} autoHide> */}
+                        {noticeList && noticeList.length > 0 ?
+                            noticeList.map((item, index) => {
+                                return (
+                                    // <LazyLoad key={item.id}
+                                    //     placeholder='loading....'
+                                    // >
+                                    <div class="sec" key={index} onClick={() => handleClickONnotice(item)}>
 
-                                    <div className='new' >
-                                        {item.status && item.status === 'N' &&
-                                            <i class="fas fa-circle"></i>
-                                        }
+                                        <div className='new' >
+                                            {item.status && item.status === 'N' &&
+                                                <i class="fas fa-circle"></i>
+                                            }
+                                        </div>
+                                        <div className='profile'></div>
+                                        <div class="profCont">
+                                            <div class="txt">{item.title}</div>
+                                            <div class="txt sub">{new Date(item.date * 1000).toLocaleString()}</div>
+                                        </div>
+                                        <div className='delete-noti' onClick={(event) => handleDeleteNotice(item, event)}>
+                                            <i className="fas fa-times" ></i>
+                                        </div>
                                     </div>
-                                    <div className='profile'></div>
-                                    <div class="profCont">
-                                        <div class="txt">{item.title}</div>
-                                        <div class="txt sub">{new Date(item.date * 1000).toLocaleString()}</div>
-                                    </div>
-                                    <div className='delete-noti' onClick={(event) => handleDeleteNotice(item, event)}>
-                                        <i className="fas fa-times" ></i>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
+                                    // </LazyLoad>
+                                )
+                            })
+                            :
+                            <div className='none'>Không còn thông báo</div>
+                        }
+                        {/* </Scrollbars> */}
+                    </div>
                 </div>
+
             </div>
             <div className='user'>
                 <div className='name'>Xuan Diep</div>

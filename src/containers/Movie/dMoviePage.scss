@@ -293,7 +293,6 @@
             }
         }
     }
-    
 }
 .Modal {
     width: fit-content;
@@ -324,6 +323,15 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.664);
+}
+.Modal-side{
+    position: absolute;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 200px;
+    background-color: #17181c;
+    padding: 20px 0px;
+    overflow-y: auto;
 }
 @media only screen and (max-width: 1024px) {
     .container-dMovie{

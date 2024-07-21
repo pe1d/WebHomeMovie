@@ -13,7 +13,7 @@ import Slider from 'react-slick';
 import moment from 'moment/moment';
 import ReactModal from 'react-modal';
 import HeaderMoviePage from '../Auth/Header/HeaderMoviePage';
-
+import Menu from '../mainWatch/SideInfo/Menu/Menu';
 function DMoviePage(props) {
     const [infoMovie, setInfoMovie] = useState({
         creditMovie: [],
@@ -134,7 +134,7 @@ function DMoviePage(props) {
     let rating = detailMovie.vote_average / 2;
     return (
         <>
-            <div className='container-dMovie' >
+            <div className='container-dMovie'>
                 <HeaderMoviePage />
                 <div className='body-dMovie'>
                     <div className='banner-dMovie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${detailMovie.backdrop_path})` }}>
@@ -277,7 +277,9 @@ function DMoviePage(props) {
                         </div>
                     </div>
                 </div>
-
+                {/* <div className='modal-menu'>
+                    <Menu></Menu>
+                </div> */}
             </div >
             <div className='modal'>
                 <ReactModal
@@ -297,6 +299,15 @@ function DMoviePage(props) {
                     }
                 </ReactModal>
             </div>
+            <ReactModal
+                isOpen={props.side}
+                onRequestClose={() => props.setSide(!props.side)}
+                shouldCloseOnOverlayClick={true}
+                className="Modal-side"
+                overlayClassName="Overlay"
+            >
+                <Menu></Menu>
+            </ReactModal>
             <HomeFooter />
         </>
     )
@@ -307,6 +318,7 @@ const mapStateToProps = state => {
         detailMovie: state.movie.detailsMovie,
         videoMovie: state.movie.videoMovie,
         creditMovie: state.movie.creditMovie,
+        side: state.app.side
     };
 };
 
@@ -316,7 +328,8 @@ const mapDispatchToProps = dispatch => {
         changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
         fetchDetailMovie: (id, language) => dispatch(actions.fetchDetailMovie(id, language)),
         fetchVideoMovie: (id, language) => dispatch(actions.fetchVideoMovie(id, language)),
-        fetchCreditMovie: (id, language) => dispatch(actions.fetchCreditMovie(id, language))
+        fetchCreditMovie: (id, language) => dispatch(actions.fetchCreditMovie(id, language)),
+        setSide: (side) => dispatch(actions.setSideInfo(side))
     };
 };
 

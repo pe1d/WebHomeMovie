@@ -14,6 +14,7 @@ import './App.scss'
 import dMoviePage from './Movie/dMoviePage.js';
 import watchMoviePage from './Movie/watchMoviePage.js';
 import Main from './mainWatch/Main/Main.js';
+import HeaderMoviePage from './Auth/Header/HeaderMoviePage.js';
 function App(props) {
   const handlePersistorState = () => {
     const { persistor } = props;

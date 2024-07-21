@@ -14,24 +14,20 @@
         height: 80px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        // justify-content: space-between;
+        z-index: 5;
         .btn-menu{
-            height: auto;
-            width: 73%;
             font-size: 20px;
             display:flex ;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            width: 40px;
+            width: 41%;
             height: 40px;
             border-radius: 20px;
-            &:hover{
-                background-color: #85878d7c;
+            &:hover {
+                color: #07b8a0;
             }
-            // i:hover{
-            //     background-color: aqua;
-            // }
         }
         .name-brand{
             background-image: url('../../../assets/images/HomeMoviestext.png');

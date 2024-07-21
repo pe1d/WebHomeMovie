@@ -1,0 +1,45 @@
+.menu{
+    // padding-top: 40px;
+    color: white;
+    font-family: "Istok Web", sans-serif;
+    font-weight: 500;
+    height: 100%;
+    // padding-bottom: 80px;
+    .main-menu{
+        height: 100%;
+        list-style-type: none ;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 0px;
+        .title-menu{
+            font-size: 18px;
+            margin-bottom: 20px;
+            .sub-menu{
+                padding-left: 0px;
+                .sub-li{
+                    cursor: pointer;
+                    margin-top: 5px;
+                    list-style-type: none ;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    .icon{
+                        font-size: 20px;
+                        width: 25px;
+                        text-align: center;
+                    }
+                    &:hover{
+                        color: #07b8a0;
+                    }
+                }
+                .active{
+                    border-right: 3px solid #07b8a0;
+                    color: #07b8a0;
+                }
+            }
+        }
+    }
+    
+}
