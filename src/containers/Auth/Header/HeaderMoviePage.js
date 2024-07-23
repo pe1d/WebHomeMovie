@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import './HeaderMoviePage.scss'
 import { useEffect, useRef, useState } from 'react';
@@ -13,11 +13,15 @@ function HeaderMoviePage(props) {
         avatar: ''
     })
     const [background, setBackground] = useState('headerMoviePage');
-    const { side } = props
+    const { side, language } = useSelector(state => (
+        {
+            side: state.app.side,
+            language: state.app.language
+        }
+    ))
+    const dispatch = useDispatch()
     useEffect(() => {
         const handleScroll = () => {
-            console.log(window.scrollY);
-            // console.log('check ref', header);
             if (window.scrollY >= 80) {
                 setBackground('headerMoviePage bg-solid')
             } else {
@@ -28,12 +32,13 @@ function HeaderMoviePage(props) {
         return () => window.removeEventListener('scroll', handleScroll, true)
     }, [])
     const handleBackHome = () => {
+        dispatch(actions.setSideInfo(false))
         props.history.push('/home')
     }
     return (
         <div className={background}>
             <div className='content-left'>
-                <div className='btn-menu col-1' onClick={() => props.changeSide(!side)} >
+                <div className='btn-menu col-1' onClick={() => dispatch(actions.setSideInfo(!side))} >
                     <i className="fas fa-bars"></i>
                 </div>
                 <div className='name-brand col-4' onClick={() => handleBackHome()}>
@@ -56,11 +61,11 @@ function HeaderMoviePage(props) {
                 </div>
                 <div className='content-2'>
                     <div className='languages' style={{ width: '60px', height: '30px' }}>
-                        <div className={props.language === LANGUAGES.VI ? 'lang-vi active' : 'lang-vi'}>
-                            <span onClick={() => props.changeLanguageAppRedux(LANGUAGES.VI)}>VI</span>
+                        <div className={language === LANGUAGES.VI ? 'lang-vi active' : 'lang-vi'}>
+                            <span onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.VI))}>VI</span>
                         </div>
-                        <div className={props.language === LANGUAGES.EN ? 'lang-en active' : 'lang-en'}>
-                            <span onClick={() => props.changeLanguageAppRedux(LANGUAGES.EN)}>EN</span>
+                        <div className={language === LANGUAGES.EN ? 'lang-en active' : 'lang-en'}>
+                            <span onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.EN))}>EN</span>
                         </div>
                     </div>
                     <div className='header-search'>
@@ -77,18 +82,5 @@ function HeaderMoviePage(props) {
         </div>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-        side: state.app.side
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
-        changeSide: (side) => dispatch(actions.setSideInfo(side))
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderMoviePage));
+export default withRouter(HeaderMoviePage);

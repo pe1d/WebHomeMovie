@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './dMoviePage.scss'
 import '../../components/input/ToogleBtn.scss'
 import * as actions from "../../store/actions";
@@ -21,25 +21,48 @@ function DMoviePage(props) {
     });
     const [showModal, setShowModal] = useState(false)
     const [watchVid, setWatchVid] = useState({})
-    const { detailMovie, videoMovie, creditMovie } = props
-
+    // const { detailMovie, videoMovie, creditMovie } = props
+    const { language, detailMovie, videoMovie, creditMovie, side } = useSelector(state => (
+        {
+            language: state.app.language,
+            detailMovie: state.movie.detailsMovie,
+            videoMovie: state.movie.videoMovie,
+            creditMovie: state.movie.creditMovie,
+            side: state.app.side
+        }
+    ))
+    const dispatch = useDispatch();
     useEffect(() => {
-        props.fetchVideoMovie(props.match.params.id, props.language)
-        props.fetchDetailMovie(props.match.params.id, props.language)
-        props.fetchCreditMovie(props.match.params.id, props.language)
+        if (!side) {
+            return () => document.documentElement.classList.add('off-scroll');
+        } else {
+            return () => document.documentElement.classList.remove('off-scroll');
+        }
+    }, [side])
+    useEffect(() => {
+        if (!side) {
+            return () => document.documentElement.classList.add('off-scroll');
+        } else {
+            return () => document.documentElement.classList.remove('off-scroll');
+        }
+    }, [])
+    useEffect(() => {
+        dispatch(actions.fetchVideoMovie(props.match.params.id, language))
+        dispatch(actions.fetchDetailMovie(props.match.params.id, language))
+        dispatch(actions.fetchCreditMovie(props.match.params.id, language))
         // console.log('check props', props);
     }, [])
     useEffect(() => {
-        props.fetchVideoMovie(props.match.params.id, props.language)
-        props.fetchDetailMovie(props.match.params.id, props.language)
-        props.fetchCreditMovie(props.match.params.id, props.language)
-    }, [props.language])
-
+        dispatch(actions.fetchVideoMovie(props.match.params.id, language))
+        dispatch(actions.fetchDetailMovie(props.match.params.id, language))
+        dispatch(actions.fetchCreditMovie(props.match.params.id, language))
+    }, [language])
     const hanldeWatchMovie = () => {
+        dispatch(actions.setSideInfo(false))
         props.history.push(`/wMovie/${props.match.params.id}`)
     }
     const checkS = (hour) => {
-        if (props.language === LANGUAGES.EN) {
+        if (language === LANGUAGES.EN) {
             if (hour > 1) {
                 return 's'
             }
@@ -60,6 +83,10 @@ function DMoviePage(props) {
     }
     const handleCloseModal = () => {
         setShowModal(false)
+    }
+    const handleBackHome = () => {
+        dispatch(actions.setSideInfo(false))
+        props.history.push('/home')
     }
     let settings = {
         speed: 500,
@@ -277,9 +304,22 @@ function DMoviePage(props) {
                         </div>
                     </div>
                 </div>
-                {/* <div className='modal-menu'>
-                    <Menu></Menu>
-                </div> */}
+                {side === true &&
+                    <div className='container-modal' onClick={() => dispatch(actions.setSideInfo(!side))}>
+                    </div>
+                }
+                <div className={side === true ? 'body-modal' : 'body-modal trans'} >
+                    <div className='content-up'>
+                        <div className='btn-menu col-1' onClick={() => dispatch(actions.setSideInfo(!side))} >
+                            <i className="fas fa-bars"></i>
+                        </div>
+                        <div className='name-brand col-4' onClick={() => handleBackHome()}>
+                        </div>
+                    </div>
+                    <div className='content-down'>
+                        <Menu></Menu>
+                    </div>
+                </div>
             </div >
             <div className='modal'>
                 <ReactModal
@@ -299,38 +339,8 @@ function DMoviePage(props) {
                     }
                 </ReactModal>
             </div>
-            <ReactModal
-                isOpen={props.side}
-                onRequestClose={() => props.setSide(!props.side)}
-                shouldCloseOnOverlayClick={true}
-                className="Modal-side"
-                overlayClassName="Overlay"
-            >
-                <Menu></Menu>
-            </ReactModal>
             <HomeFooter />
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-        detailMovie: state.movie.detailsMovie,
-        videoMovie: state.movie.videoMovie,
-        creditMovie: state.movie.creditMovie,
-        side: state.app.side
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout()),
-        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
-        fetchDetailMovie: (id, language) => dispatch(actions.fetchDetailMovie(id, language)),
-        fetchVideoMovie: (id, language) => dispatch(actions.fetchVideoMovie(id, language)),
-        fetchCreditMovie: (id, language) => dispatch(actions.fetchCreditMovie(id, language)),
-        setSide: (side) => dispatch(actions.setSideInfo(side))
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DMoviePage));
+export default withRouter(DMoviePage);

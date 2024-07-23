@@ -1,32 +1,25 @@
-import React, { Component, Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './Main.scss'
 import * as actions from "../../../store/actions";
 import SideInfo from '../SideInfo/SideInfo';
 import ListMain from '../ListMain/ListMain';
 import SideWatch from '../SideWatch/SideWatch';
 import HeaderMoviePage from '../../Auth/Header/HeaderMoviePage.js';
-const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-        width,
-        height
-    };
-}
 function Main(props) {
-    const [header, setHeader] = useState('header-main')
-    const handleScroll = () => {
-        if (window.scrollY > 80) {
-            setHeader('header-main bg-solid')
-        } else {
-            setHeader('header-main')
+    const { side, language } = useSelector(state => (
+        {
+            side: state.app.side,
+            language: state.app.language,
         }
-    }
-    useState(() => {
-        window.addEventListener('scroll', handleScroll, true)
-        return () => { window.removeEventListener('scroll', handleScroll, true) }
+    ))
+    const dispatch = useDispatch()
+    useEffect(() => {
+        return () => document.documentElement.classList.remove('off-scroll');
+    })
+    useEffect(() => {
+        dispatch(actions.setSideInfo(false))
     }, [])
-    const { side } = props
     return (
         <>
             <div className='container-main bg-main'>
@@ -46,18 +39,6 @@ function Main(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-        side: state.app.side
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout()),
-        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
-    };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

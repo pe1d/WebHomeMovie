@@ -24,7 +24,7 @@
     }  
     @keyframes pulse {
         0% {transform: scale(1);}
-        50% {transform: scale(1.2);} 
+        50% {transform: scale(1.1);} 
         100% {transform: scale(1);}
     }   
     &:hover > .container-noti {
@@ -74,6 +74,7 @@
             width: 400px;
             height: calc(40vh - 50px);
             overflow-y: scroll !important;
+            scrollbar-gutter: stable;
             .sec{
                 padding: 15px 20px;
                 transition: 0.5s;
@@ -157,19 +158,15 @@
     }
 }
 
-.Modal-1{
-    width: fit-content;
-    position: absolute;
-	top: 10%;
-	right: 12%;   
-    
+@media only screen and (max-width: 1024px) {
+    .btn-noti {
+        display: none !important;
+    }
+    .name {
+        display: none !important;
+    }
+    .more-info{
+        display: none !important;
+    }
 }
-.Overlay-1{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 4;
-    border: none;
-}
+

@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './ListMain.scss'
 import * as actions from "../../../store/actions";
-import { ApiKey } from '../../../untils';
 import StarRatings from 'react-star-ratings';
 import Slider from 'react-slick';
 import { FormattedMessage } from 'react-intl';
@@ -26,8 +25,14 @@ function ListMain(props) {
     const [errMessage, setErrMessage] = useState('')
     const [listMovie, setListMovie] = useState([])
     const [favor, setFavor] = useState(false)
+    const { language } = useSelector(state => (
+        {
+            language: state.app.language
+        }
+    ))
+    const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        let movie = await getMoviesFromDB('popularity.desc', 1, props.language, 2024)
+        let movie = await getMoviesFromDB('popularity.desc', 1, language, 2024)
         setListMovie(movie)
     }
     useEffect(() => {
@@ -35,17 +40,14 @@ function ListMain(props) {
     }, [])
     useEffect(() => {
         fetchMovieList()
-    }, [props.language])
+    }, [language])
     const hanldeWatchMovie = (id) => {
-        // alert('Movie id: ' + id)
+        dispatch(actions.setSideInfo(false))
         props.history.push(`/dMovie/${id}`)
     }
     return (
         <>
             <div className='container-list-main'>
-                <div className='header-list-main'>
-
-                </div>
                 <div className='banner-list-main'>
                     <Slider {...settings_banner}>
                         {listMovie && listMovie.length > 0 &&
@@ -106,18 +108,6 @@ function ListMain(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-        movieList: state.movie.movieList,
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout()),
-        fetchMovie: (typeSort, page, language, year) => dispatch(actions.fetchMovie(typeSort, page, language, year)),
-    };
-};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListMain));
+export default withRouter(ListMain);
