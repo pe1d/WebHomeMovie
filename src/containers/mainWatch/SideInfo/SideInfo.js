@@ -5,12 +5,7 @@ import * as actions from "../../../store/actions";
 import '../../Auth/About.scss'
 import Menu from './Menu/Menu';
 import SubMenu from './Menu/SubMenu';
-import Scrollbars from 'react-custom-scrollbars';
 function SideInfo(props) {
-    const [menu, setMenu] = useState(false)
-    useEffect(() => {
-        console.log(menu);
-    }, [menu])
     return (
         <>
             <div className='container-side-right'>

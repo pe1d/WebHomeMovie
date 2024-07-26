@@ -25,25 +25,25 @@ function ListMain(props) {
     const [errMessage, setErrMessage] = useState('')
     const [listMovie, setListMovie] = useState([])
     const [favor, setFavor] = useState(false)
-    const { language } = useSelector(state => (
+    const { language, typeMovie } = useSelector(state => (
         {
-            language: state.app.language
+            language: state.app.language,
+            typeMovie: state.movie.typeMovie
         }
     ))
     const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        let movie = await getMoviesFromDB('popularity.desc', 1, language, 2024)
+        console.log('check type on home', typeMovie);
+        let movie = await getMoviesFromDB(typeMovie, 'popularity.desc', 1, language, 2024)
+        // console.log(movie);
         setListMovie(movie)
     }
     useEffect(() => {
         fetchMovieList()
-    }, [])
-    useEffect(() => {
-        fetchMovieList()
-    }, [language])
+    }, [language, typeMovie])
     const hanldeWatchMovie = (id) => {
         dispatch(actions.setSideInfo(false))
-        props.history.push(`/dMovie/${id}`)
+        props.history.push(`/${typeMovie}/${id}`)
     }
     return (
         <>
@@ -56,7 +56,9 @@ function ListMain(props) {
                                     return (
                                         <div>
                                             <div className='banner-movie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})` }} key={index}>
-                                                <div className='name-film'>{item.title}</div>
+                                                <div className='name-film'>
+                                                    {item.title || item.name}
+                                                </div>
                                                 <div className='vote-average'>
                                                     <StarRatings
                                                         rating={item.vote_average / 2}
@@ -100,6 +102,13 @@ function ListMain(props) {
                 <ContentSlider
                     idName='main.content.toprated-movies'
                     typeSort='vote_average.desc'
+                    page='1'
+                    year='2024'
+                    hanldeWatchMovie={hanldeWatchMovie}
+                />
+                <ContentSlider
+                    idName='main.content.topwatch-movies'
+                    typeSort='vote_count.desc'
                     page='1'
                     year='2024'
                     hanldeWatchMovie={hanldeWatchMovie}

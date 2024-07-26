@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import './HeaderSW.scss'
-import * as actions from "../../../../store/actions";
-
 
 function HeaderSW(props) {
     const [noticeList, setNoticeList] = useState([
@@ -22,6 +19,10 @@ function HeaderSW(props) {
         userName: '',
         avatar: ''
     })
+    const [modal, setModal] = useState(false)
+    useEffect(() => {
+        document.body.style.overflow = modal ? 'hidden' : 'unset';
+    }, [modal])
     const handleDeleteNotice = (noti, event) => {
         event.stopPropagation();
         const newNoti = noticeList.filter((item) => {
@@ -30,7 +31,8 @@ function HeaderSW(props) {
         })
         setNoticeList(newNoti)
     }
-    const handleClickONnotice = (noti) => {
+    const handleClickONnotice = (noti, event) => {
+        event.stopPropagation();
         const newNotice = noticeList.map((item) => {
             if (item.id == noti.id && noti.status == 'N') {
                 item.status = 'O';
@@ -47,10 +49,10 @@ function HeaderSW(props) {
     }
     return (
         <>
-            <div typeof='button' className='btn-noti'>
+            <div typeof='button' className='btn-noti' onClick={() => setModal(!modal)}>
                 < div class="btn-badge pulse-button">{checkNewNoti()}</div>
                 <i className="fas fa-bell" ></i>
-                <div className='container-noti'>
+                <div className={modal === true ? 'container-noti' : 'container-noti off-noti'}>
                     <div className='header-noti'>
                         <div className='name-header'>
                             Thông báo
@@ -63,8 +65,7 @@ function HeaderSW(props) {
                         {noticeList && noticeList.length > 0 ?
                             noticeList.map((item, index) => {
                                 return (
-                                    <div class="sec" key={index} onClick={() => handleClickONnotice(item)}>
-
+                                    <div class="sec" key={index} onClick={(event) => handleClickONnotice(item, event)}>
                                         <div className='new' >
                                             {item.status && item.status === 'N' &&
                                                 <i class="fas fa-circle"></i>
@@ -94,6 +95,10 @@ function HeaderSW(props) {
                 <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }}>
                 </div>
             </div>
+            {modal === true &&
+                <div className='background-noti' onClick={() => setModal(false)}></div>
+            }
+
         </>
     )
 }

@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './dMoviePage.scss'
+import '../Movie/dMoviePage.scss'
 import '../../components/input/ToogleBtn.scss'
 import * as actions from "../../store/actions";
 import StarRatings from 'react-star-ratings';
 import HomeFooter from '../HomePage/HomeFooter'
-import { ApiKey, LANGUAGES } from '../../untils'
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import YouTube from 'react-youtube';
 import Slider from 'react-slick';
-import moment from 'moment/moment';
 import ReactModal from 'react-modal';
 import HeaderMoviePage from '../Auth/Header/HeaderMoviePage';
 import Menu from '../mainWatch/SideInfo/Menu/Menu';
-function DMoviePage(props) {
+import { getContentMovie } from '../../services/movieService';
+function TVPage(props) {
     const [infoMovie, setInfoMovie] = useState({
         creditMovie: [],
-        detailMovie: {}
+        detailMovie: {},
     });
+    const [ratingCont, setRatingCont] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [watchVid, setWatchVid] = useState({})
-    // const { detailMovie, videoMovie, creditMovie } = props
-    const { language, detailMovie, videoMovie, creditMovie, side, typeMovie, recommend } = useSelector(state => (
+    const { language, detailMovie, videoMovie, creditMovie, side, typeMovie } = useSelector(state => (
         {
             language: state.app.language,
             detailMovie: state.movie.detailsMovie,
             videoMovie: state.movie.videoMovie,
             creditMovie: state.movie.creditMovie,
             side: state.app.side,
-            typeMovie: state.movie.typeMovie,
-            recommend: state.movie.recommend
+            typeMovie: state.movie.typeMovie
         }
     ))
     const dispatch = useDispatch();
@@ -38,52 +36,35 @@ function DMoviePage(props) {
         document.body.style.overflow = side ? 'hidden' : 'unset';
     }, [side])
     useEffect(() => {
-        dispatch(actions.fetchVideoMovie(props.match.params.id, language, 'movie'))
-        dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'movie'))
-        dispatch(actions.fetchCreditMovie(props.match.params.id, language, 'movie'))
-        dispatch(actions.fetchRecommendMovie(props.match.params.id, language, 'movie'))
-    }, [language, props.match.params.id])
+        dispatch(actions.fetchVideoMovie(props.match.params.id, language, 'tv'))
+        dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'tv'))
+        dispatch(actions.fetchCreditMovie(props.match.params.id, language, 'tv'))
+        getRating()
+    }, [language])
     const hanldeWatchMovie = () => {
         dispatch(actions.setSideInfo(false))
-        props.history.push(`/wMovie/${props.match.params.id}`)
-    }
-    const checkS = (hour) => {
-        if (language === LANGUAGES.EN) {
-            if (hour > 1) {
-                return 's'
-            }
-        }
-    }
-    const searchCredit = (role) => {
-        let director = ''
-        if (creditMovie && creditMovie.crew && creditMovie.crew.length > 0) {
-            director = creditMovie.crew.find((e) => {
-                return e.department === role
-            })
-        }
-        return director.name
+        props.history.push(`/wTV/${props.match.params.id}`)
     }
     const handleOpenModal = (item) => {
         setShowModal(true);
         setWatchVid(item);
         document.body.style.overflow = 'hidden';
-        // document.body.style.setProperty('--st', -(document.documentElement.scrollTop) + "px")
-        // document.body.classList.add('noscroll')
     }
     const handleCloseModal = () => {
         setShowModal(false)
         document.body.style.overflow = 'unset';
-        // document.body.style.removeProperty('--st')
-        // document.body.classList.remove('noscroll')
     }
     const handleBackHome = () => {
         dispatch(actions.setSideInfo(false))
         props.history.push('/home')
     }
-    const hanldeOpenReMovie = (id) => {
-        dispatch(actions.setSideInfo(false))
-        props.history.push(`/movie/${id}`)
-        window.scrollTo(0, 0)
+    const getRating = async () => {
+        const listRating = await getContentMovie(props.match.params.id, 'tv')
+        const ratingMovie = listRating.filter((item) => {
+            return item.iso_3166_1 == 'US'
+        })
+        console.log(ratingMovie[0]);
+        setRatingCont(ratingMovie[0].rating)
     }
     let settings = {
         speed: 500,
@@ -152,9 +133,7 @@ function DMoviePage(props) {
             autoplay: 1,
         },
     }
-    let year = new Date(detailMovie.release_date || detailMovie.first_air_date)
-    let timeHour = moment().startOf('day').add(detailMovie.runtime, 'minutes').format(`hh`);
-    let timeMinute = moment().startOf('day').add(detailMovie.runtime, 'minutes').format(`mm`);
+    let year = new Date(detailMovie.first_air_date)
     let rating = detailMovie.vote_average / 2;
     return (
         <>
@@ -172,10 +151,10 @@ function DMoviePage(props) {
                                 </div>
                             </div>
                             <div className='column-3-4'>
-                                <div className='original-title'><h1>{detailMovie.original_title}</h1></div>
-                                <div className='sub-title'>{detailMovie.title || detailMovie.name} (<a href='#'>{year.getFullYear()}</a>)</div>
-                                <div className='runtime-movie'>
-                                    {timeHour} <FormattedMessage id='dMoviePage.hours' />{checkS(timeHour)} {timeMinute} <FormattedMessage id='dMoviePage.minutes' />
+                                <div className='original-title'><h1>{detailMovie.original_name}</h1></div>
+                                <div className='sub-title'>{detailMovie.name} (<a href='#'>{year.getFullYear()}</a>)</div>
+                                <div className='rating-movie'>
+                                    {ratingCont}
                                 </div>
                                 <div className='imdb-movie'>
                                     {rating && rating &&
@@ -209,21 +188,13 @@ function DMoviePage(props) {
                                     </div>
                                 </div>
                                 <dl className='info-movie'>
-                                    <dt> <FormattedMessage id='dMoviePage.director' /></dt>
-                                    <dd className='csv'>
-                                        <a href='#'>{searchCredit("Directing")}</a>
-                                    </dd>
-                                    <dt> <FormattedMessage id='dMoviePage.writer' /></dt>
-                                    <dd className='csv'>
-                                        <a href='#'>{searchCredit("Directing")}</a>
-                                    </dd>
                                     <dt> <FormattedMessage id='dMoviePage.nation' /></dt>
                                     <dd className='csv'>
                                         <a href='#'>{detailMovie.origin_country}</a>
                                     </dd>
                                     <dt> <FormattedMessage id='dMoviePage.release-date' /></dt>
                                     <dd className='csv'>
-                                        <a href='#'>{detailMovie.release_date}</a>
+                                        <a href='#'>{detailMovie.first_air_date}</a>
                                     </dd>
                                 </dl>
                                 <div className='overview'>
@@ -297,23 +268,6 @@ function DMoviePage(props) {
                                         </Slider>
                                     </div>
                                 </div>
-                                <div className='recommend'>
-                                    <div className='title-sec'>Recommend</div>
-                                    <div className='list'>
-                                        <Slider {...settingsTrailer} >
-                                            {recommend && recommend.length > 0 &&
-                                                recommend.map((item, index) => {
-                                                    return (
-                                                        <div className='container-recommend' onClick={() => hanldeOpenReMovie(item.id)}>
-                                                            <div className='poster-recommend' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.poster_path})` }}></div>
-                                                            <div className='name-recommend'>{item.title}</div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </Slider>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -356,4 +310,4 @@ function DMoviePage(props) {
         </>
     )
 }
-export default withRouter(DMoviePage);
+export default withRouter(TVPage);

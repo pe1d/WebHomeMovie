@@ -1,26 +1,30 @@
 import React, { Component, Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './cslTopRated.scss'
 import * as actions from "../../../../store/actions";
 import StarRatings from 'react-star-ratings';
 import { LANGUAGES } from '../../../../untils';
 import { getMoviesFromDB } from '../../../../services/movieService';
-import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 function CslTopRated(props) {
     const [dataTopRatedMovie, setDataTopRatedMovie] = useState([])
     const [position, setPosition] = useState(1)
+    const { typeMovie, language } = useSelector(state => (
+        {
+            typeMovie: state.movie.typeMovie,
+            language: state.app.language
+        }
+    ))
+    const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        let movieList = await getMoviesFromDB(props.typeSort, props.page, props.language, props.year);
+        console.log(typeMovie);
+        let movieList = await getMoviesFromDB(typeMovie, props.typeSort, props.page, language, props.year);
         setDataTopRatedMovie(movieList)
     }
     useEffect(() => {
         fetchMovieList()
-    }, [])
-    useEffect(() => {
-        fetchMovieList()
-    }, [props.language]);
+    }, [language, typeMovie]);
     return (
         <>
             <div className='csl-top-rated'>
@@ -59,7 +63,7 @@ function CslTopRated(props) {
                                         <div className='details-m-cont' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})` }}>
                                             <div className='title-m'>
                                                 <div className='name-movie'>
-                                                    {item.title}
+                                                    {item.title || item.name}
                                                 </div>
                                                 <StarRatings
                                                     rating={5}
@@ -70,7 +74,7 @@ function CslTopRated(props) {
                                             </div>
                                             <div className='btn-list'>
                                                 <div className='btn-drop'><i className="fas fa-plus"></i></div>
-                                                <div className='btn-watch' onClick={() => this.props.hanldeWatchMovie(item.id)}><FormattedMessage id='sider-watch.watch' /></div>
+                                                <div className='btn-watch' onClick={() => props.hanldeWatchMovie(item.id)}><FormattedMessage id='sider-watch.watch' /></div>
                                             </div>
                                         </div >
                                     </>
@@ -83,17 +87,6 @@ function CslTopRated(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout()),
-        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
-    };
-};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CslTopRated));
+export default CslTopRated;

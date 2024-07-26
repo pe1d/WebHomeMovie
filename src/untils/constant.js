@@ -5,7 +5,8 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAILMOVIE: '/dMovie/:id',
+    DETAILMOVIE: '/movie/:id',
+    DETAILTV: '/tv/:id',
     WATCH: '/wMovie/:id',
 };
 

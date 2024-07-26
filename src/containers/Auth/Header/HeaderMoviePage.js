@@ -13,10 +13,11 @@ function HeaderMoviePage(props) {
         avatar: ''
     })
     const [background, setBackground] = useState('headerMoviePage');
-    const { side, language } = useSelector(state => (
+    const { side, language, typeMovie } = useSelector(state => (
         {
             side: state.app.side,
-            language: state.app.language
+            language: state.app.language,
+            typeMovie: state.movie.typeMovie
         }
     ))
     const dispatch = useDispatch()
@@ -35,6 +36,11 @@ function HeaderMoviePage(props) {
         dispatch(actions.setSideInfo(false))
         props.history.push('/home')
     }
+    const handleBackHomeAndChangeType = (typeMovieChange) => {
+        // console.log(typeMovie);
+        dispatch(actions.setTypeMovie(typeMovieChange))
+        handleBackHome()
+    }
     return (
         <div className={background}>
             <div className='content-left'>
@@ -46,16 +52,16 @@ function HeaderMoviePage(props) {
             </div>
             <div className='content-center'>
                 <div className='menu-movie'>
-                    <div className='name-menu'>
+                    <div className='name-menu' onClick={() => handleBackHome()}>
                         Trang chủ
                     </div>
                     <div className='name-menu'>
                         Phim Phổ biến
                     </div>
-                    <div className='name-menu'>
+                    <div className='name-menu' onClick={() => handleBackHomeAndChangeType('tv')}>
                         Phim bộ
                     </div>
-                    <div className='name-menu'>
+                    <div className='name-menu' onClick={() => handleBackHomeAndChangeType('movie')}>
                         Phim lẻ
                     </div>
                 </div>

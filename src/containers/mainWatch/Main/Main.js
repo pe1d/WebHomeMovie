@@ -14,12 +14,6 @@ function Main(props) {
         }
     ))
     const dispatch = useDispatch()
-    useEffect(() => {
-        return () => document.documentElement.classList.remove('off-scroll');
-    })
-    useEffect(() => {
-        dispatch(actions.setSideInfo(false))
-    }, [])
     return (
         <>
             <div className='container-main bg-main'>

@@ -38,8 +38,9 @@
             "btn-watch": "Xem ngay"
         },
         "content": {
-            "popular-movies": "Phổ biến tại HomeMovies",
-            "toprated-movies": "Đánh giá cao tại HomeMovies"
+            "popular-movies": "Phim đề cử",
+            "toprated-movies": "Phim đánh giá cao ",
+            "topwatch-movies": "Phim nhiều lượt xem"
         }
     },
     "sider-info": {

@@ -6,7 +6,8 @@ const initialState = {
     detailsMovie: {},
     videoMovie: [],
     genresMovie: [],
-    creditMovie: []
+    creditMovie: [],
+    typeMovie: 'movie',
 }
 
 const movieReducer = (state = initialState, action) => {
@@ -64,6 +65,20 @@ const movieReducer = (state = initialState, action) => {
         case actionTypes.FETCH_CREDIT_MOVIE_FAIL:
             return {
                 ...state,
+            }
+        case actionTypes.CHANGE_MOVIE_TYPE:
+            return {
+                ...state,
+                typeMovie: action.typeMovie,
+            }
+        case actionTypes.FETCH_RECOMMEND_MOVIE_SUCCESS:
+            return {
+                ...state,
+                recommend: action.data
+            }
+        case actionTypes.FETCH_RECOMMEND_MOVIE_FAIL:
+            return {
+                ...state
             }
         default:
             return state;

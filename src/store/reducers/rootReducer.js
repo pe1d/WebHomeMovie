@@ -23,11 +23,15 @@ const appPersistConfig = {
     key: 'app',
     whitelist: ['language']
 };
-
+const moviePersistConfig = {
+    ...persistCommonConfig,
+    key: 'movie',
+    whitelist: ['typeMovie']
+};
 export default (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
     admin: adminReducer,
-    movie: movieReducer
+    movie: persistReducer(moviePersistConfig, movieReducer)
 })

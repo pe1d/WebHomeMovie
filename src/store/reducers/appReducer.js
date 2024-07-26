@@ -1,20 +1,10 @@
 import actionTypes from '../actions/actionTypes';
 
-const initContentOfConfirmModal = {
-    isOpen: false,
-    messageId: "",
-    handleFunc: null,
-    dataFunc: null
-}
-
 const initialState = {
     started: true,
     language: 'vi',
     side: false,
     systemMenuPath: '/home/watch',
-    contentOfConfirmModal: {
-        ...initContentOfConfirmModal
-    }
 }
 
 const appReducer = (state = initialState, action) => {
@@ -24,14 +14,6 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 started: true
             }
-        case actionTypes.SET_CONTENT_OF_CONFIRM_MODAL:
-            return {
-                ...state,
-                contentOfConfirmModal: {
-                    ...state.contentOfConfirmModal,
-                    ...action.contentOfConfirmModal
-                }
-            }
         case actionTypes.CHANGE_LANGUAGE:
             // console.log(">>>>Check redux: ", action)
             return {
@@ -39,7 +21,6 @@ const appReducer = (state = initialState, action) => {
                 language: action.language,
             }
         case actionTypes.SET_SIDE:
-            console.log(action.side);
             return {
                 ...state,
                 side: action.side,

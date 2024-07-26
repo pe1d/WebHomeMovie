@@ -97,6 +97,15 @@
                         font-size: 1.2em;
                         margin-bottom: 1.2rem;
                     }
+                    .rating-movie{
+                        font-size: 1em;
+                        margin-bottom: 1.2rem;
+                        background-color: #005551bd;
+                        width: fit-content;
+                        padding: 5px;
+                        border-radius: 5px;
+                        cursor:help;
+                    }
                     .imdb-movie{
                         margin-bottom: 1.2rem;
                     }
@@ -190,23 +199,54 @@
                         margin-bottom: 1.5em;
                         color: #b5b5b5 !important;
                     }
-                    .actor, .trailer{
+                    .actor, .trailer , .recommend{
                         margin-bottom: 1.5rem;
-    
-                        .title-actor, .title-trailer{
+                        .title-sec{
                             font-size: 1rem;
                             font-weight: 700;
                             text-transform: uppercase;
                             margin-bottom: 1rem;
                         }
-                        .cast{
+                        .list{
+                            .slick-slide{
+                                display: flex !important;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                            .container-list-videoM{
+                                // border: 1px solid red;
+                                width: 200px !important;
+                                height: 120px;
+                                .img-video{
+                                    width: 200px;
+                                    height: 120px;
+                                    background-size: cover;
+                                    background-position: center center;
+                                    background-repeat: no-repeat;
+                                    border-radius: 10px;
+                                    cursor: pointer;
+                                    &:hover{
+                                        border: 2px solid #00bab3;
+                                        box-shadow: 0px 0px 200px -2px rgba(0,0,0,0.75) inset;
+                                    }
+                                    &:hover > .play-video{
+                                        display: flex;
+                                    }
+                                }
+                                .play-video{
+                                    height: 100%;
+                                    font-size: 40px;
+                                    display: none;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                            }
                             .container-list-actor{
                                 display: flex !important;
                                 flex-direction: column;
                                 align-items: center;
                                 justify-content: center;
-                                gap: 0.25rem;
-                                
+                                gap: 0.25rem;                         
                                 .img-actor{
                                     width: 120px !important;
                                     height: 120px !important;
@@ -251,40 +291,24 @@
                                     text-align: center;
                                     color: #7a7a7a;
                                 }
-                            }         
-                        }
-                        .trailer-list{
-                            .slick-slide{
-                                display: flex !important;
-                                align-items: center;
-                                justify-content: center;
-                            }
-                            .container-list-videoM{
-                                // border: 1px solid red;
-                                width: 200px !important;
-                                height: 120px;
-                                .img-video{
+                            }  
+                            .container-recommend{
+                                display: flex;
+                                flex-direction: column;
+                                width: 200px;
+                                cursor: pointer;
+                                
+                                .poster-recommend{
                                     width: 200px;
-                                    height: 120px;
+                                    height: 300px;
                                     background-size: cover;
                                     background-position: center center;
                                     background-repeat: no-repeat;
-                                    border-radius: 10px;
-                                    cursor: pointer;
-                                    &:hover{
-                                        border: 2px solid #00bab3;
-                                        box-shadow: 0px 0px 200px -2px rgba(0,0,0,0.75) inset;
-                                    }
-                                    &:hover > .play-video{
-                                        display: flex;
-                                    }
+                                    border-radius: 20px;
                                 }
-                                .play-video{
-                                    height: 100%;
-                                    font-size: 40px;
-                                    display: none;
-                                    justify-content: center;
-                                    align-items: center;
+                                .name-recommend{
+                                    font-size: 14px;
+                                    width: 200px;
                                 }
                             }
                         }
@@ -300,7 +324,7 @@
     position: fixed;
     top: 0;
     background-color: rgba(0, 0, 0, 0.664);
-    overflow:hidden;
+    z-index: 6;
 }
 .body-modal{
     position: fixed;
@@ -358,8 +382,12 @@
 .trans{
     left: -200px !important;
 }
-.off-scroll{
-    overflow-y: hidden !important;
+.noscroll{
+    // overflow-y: hidden !important;
+    position: fixed; 
+    top: var(--st, 0);
+    inline-size: 100%;
+    overflow-y:scroll; 
 }
 .Modal {
     width: fit-content;

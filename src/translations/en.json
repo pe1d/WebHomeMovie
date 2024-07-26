@@ -39,7 +39,8 @@
         },
         "content": {
             "popular-movies": "Popular on HomeMovies",
-            "toprated-movies": "Top Rated on HomeMovies"
+            "toprated-movies": "Top rated on HomeMovies",
+            "topwatch-movies": "Top view on HomeMovies"
         }
     },
     "sider-info": {
