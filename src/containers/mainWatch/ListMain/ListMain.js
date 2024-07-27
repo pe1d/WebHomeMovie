@@ -33,9 +33,7 @@ function ListMain(props) {
     ))
     const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        console.log('check type on home', typeMovie);
-        let movie = await getMoviesFromDB(typeMovie, 'popularity.desc', 1, language, 2024)
-        // console.log(movie);
+        let movie = await getMoviesFromDB(typeMovie, `${typeMovie == 'tv' ? "airing_today" : "now_playing"}`, 1, language, 2024)
         setListMovie(movie)
     }
     useEffect(() => {
@@ -52,7 +50,7 @@ function ListMain(props) {
                     <Slider {...settings_banner}>
                         {listMovie && listMovie.length > 0 &&
                             listMovie.map((item, index) => {
-                                if (index < 3)
+                                if (index < 5)
                                     return (
                                         <div>
                                             <div className='banner-movie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})` }} key={index}>
@@ -94,21 +92,21 @@ function ListMain(props) {
                 </div>
                 <ContentSlider
                     idName='main.content.popular-movies'
-                    typeSort='popularity.desc'
+                    typeSort='popular'
                     page='1'
                     year='2024'
                     hanldeWatchMovie={hanldeWatchMovie}
                 />
                 <ContentSlider
                     idName='main.content.toprated-movies'
-                    typeSort='vote_average.desc'
+                    typeSort='top_rated'
                     page='1'
                     year='2024'
                     hanldeWatchMovie={hanldeWatchMovie}
                 />
                 <ContentSlider
                     idName='main.content.topwatch-movies'
-                    typeSort='vote_count.desc'
+                    typeSort={`${typeMovie == 'tv' ? "airing_today" : "upcoming"}`}
                     page='1'
                     year='2024'
                     hanldeWatchMovie={hanldeWatchMovie}

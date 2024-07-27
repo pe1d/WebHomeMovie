@@ -18,7 +18,7 @@ function BodySW(props) {
             <CslCont />
             <CslTopRated
                 idName='main.content.popular-movies'
-                typeSort='popularity.desc'
+                typeSort='popular'
                 page='1'
                 year='2024'
                 hanldeWatchMovie={hanldeWatchMovie}

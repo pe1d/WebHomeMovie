@@ -5,9 +5,7 @@ const getMoviesFromDB = (typeMovie, typeSort, page, language, year) => {
     return new Promise(async (resolve, reject) => {
         try {
             const fetch = require('node-fetch');
-
-            const url = `https://api.themoviedb.org/3/discover/${typeMovie}?include_adult=true&include_video=false
-            &language=${language}&page=${page}&sort_by=${typeSort}&vote_count.gte=1000&year=${year}`;
+            const url = `https://api.themoviedb.org/3/${typeMovie}/${typeSort}?&language=${language}&page=${page}`;
             const options = {
                 method: 'GET',
                 headers: {

@@ -39,6 +39,7 @@ function HeaderMoviePage(props) {
     const handleBackHomeAndChangeType = (typeMovieChange) => {
         // console.log(typeMovie);
         dispatch(actions.setTypeMovie(typeMovieChange))
+        window.scrollTo(0, 0)
         handleBackHome()
     }
     return (

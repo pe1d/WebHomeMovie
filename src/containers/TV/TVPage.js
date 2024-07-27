@@ -32,6 +32,7 @@ function TVPage(props) {
         }
     ))
     const dispatch = useDispatch();
+    // console.log('check', detailMovie.seasons);
     useEffect(() => {
         document.body.style.overflow = side ? 'hidden' : 'unset';
     }, [side])
@@ -60,11 +61,23 @@ function TVPage(props) {
     }
     const getRating = async () => {
         const listRating = await getContentMovie(props.match.params.id, 'tv')
-        const ratingMovie = listRating.filter((item) => {
-            return item.iso_3166_1 == 'US'
-        })
-        console.log(ratingMovie[0]);
-        setRatingCont(ratingMovie[0].rating)
+        if (listRating !== null) {
+            const ratingMovie = listRating.filter((item) => {
+                return item.iso_3166_1 == 'US'
+            })
+            // console.log(ratingMovie[0]);
+            if (ratingMovie[0] != null) {
+                setRatingCont(ratingMovie[0].rating)
+            }
+        }
+        return ''
+    }
+    const getYear = (date) => {
+        if (date != null) {
+            var d = new Date(date).getFullYear()
+            return d + ' -'
+        }
+
     }
     let settings = {
         speed: 500,
@@ -246,9 +259,11 @@ function TVPage(props) {
                                     </div>
                                 </div>
                                 <div className='trailer'>
-                                    <div className='title-sec'>
-                                        <FormattedMessage id='dMoviePage.trailer' />
-                                    </div>
+                                    {videoMovie && videoMovie.length > 0 &&
+                                        <div className='title-sec'>
+                                            <FormattedMessage id='dMoviePage.trailer' />
+                                        </div>
+                                    }
                                     <div className='list'>
                                         <Slider {...settingsTrailer}>
                                             {videoMovie && videoMovie.length > 0 &&
@@ -266,6 +281,33 @@ function TVPage(props) {
                                                 })
                                             }
                                         </Slider>
+                                    </div>
+                                </div>
+                                <div className='season'>
+                                    <div className='title-sec'>
+                                        <FormattedMessage id='dMoviePage.season' />
+                                    </div>
+                                    <div className='list'>
+                                        {detailMovie && detailMovie.seasons && detailMovie.seasons.length > 0 &&
+                                            detailMovie.seasons.map((item, index) => {
+                                                return (
+                                                    <div className='container-season'>
+                                                        <div className='poster-season' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.poster_path})` }}></div>
+                                                        <div className='content-season'>
+                                                            <div className='season-number'>Phần {item.season_number}</div>
+                                                            <div className='detail-season'> {getYear(item.air_date)}  {item.episode_count} Tập</div>
+                                                            {item.air_date == null ?
+                                                                <div className='detail-season'>Chưa có ngày công chiếu chính thức</div>
+                                                                :
+                                                                <div className='detail-season'> Phần {item.season_number} của {detailMovie.name} được khởi chiếu vào ngày {item.air_date}</div>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                )
+
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>

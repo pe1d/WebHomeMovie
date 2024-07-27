@@ -40,7 +40,7 @@
         "content": {
             "popular-movies": "Popular on HomeMovies",
             "toprated-movies": "Top rated on HomeMovies",
-            "topwatch-movies": "Top view on HomeMovies"
+            "topwatch-movies": "Upcoming on HomeMovies"
         }
     },
     "sider-info": {
@@ -79,6 +79,7 @@
         "nation": "Nation",
         "release-date": "Release date",
         "actor": "Actors",
-        "trailer": "Trailers"
+        "trailer": "Trailers",
+        "season": "Season"
     }
 }

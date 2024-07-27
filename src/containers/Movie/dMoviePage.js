@@ -275,9 +275,11 @@ function DMoviePage(props) {
                                     </div>
                                 </div>
                                 <div className='trailer'>
-                                    <div className='title-sec'>
-                                        <FormattedMessage id='dMoviePage.trailer' />
-                                    </div>
+                                    {videoMovie && videoMovie.length > 0 &&
+                                        <div className='title-sec'>
+                                            <FormattedMessage id='dMoviePage.trailer' />
+                                        </div>
+                                    }
                                     <div className='list'>
                                         <Slider {...settingsTrailer}>
                                             {videoMovie && videoMovie.length > 0 &&

@@ -18,7 +18,6 @@ function CslTopRated(props) {
     ))
     const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        console.log(typeMovie);
         let movieList = await getMoviesFromDB(typeMovie, props.typeSort, props.page, language, props.year);
         setDataTopRatedMovie(movieList)
     }
@@ -87,6 +86,4 @@ function CslTopRated(props) {
         </>
     )
 }
-
-
 export default CslTopRated;

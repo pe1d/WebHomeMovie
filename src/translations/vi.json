@@ -40,7 +40,7 @@
         "content": {
             "popular-movies": "Phim đề cử",
             "toprated-movies": "Phim đánh giá cao ",
-            "topwatch-movies": "Phim nhiều lượt xem"
+            "topwatch-movies": "Phim sắp ra mắt"
         }
     },
     "sider-info": {
@@ -79,6 +79,7 @@
         "nation": "Quốc gia",
         "release-date": "Khởi chiếu",
         "actor": "Diễn viên",
-        "trailer": "Trailers"
+        "trailer": "Trailers",
+        "season": "Mùa"
     }
 }
