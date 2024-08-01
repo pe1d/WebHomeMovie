@@ -1,10 +1,205 @@
 .container-watch-movie{
     background-color: #17181c;
-    color: white;
+    color: white; 
+    overflow-x: hidden;
     .body-watchMovie{
+        padding: 80px 0px;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         background-color: #17181c;
+        min-height: 100vh;
+        .movie{
+            width: auto;
+        }
+        .content-down{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            .original-title{
+                font-weight: 500;
+                font-size: 1.5rem;
+            }        
+            .sub-title{
+                margin-bottom: 1em;
+                color: #b5b5b5;
+                font-size: 1.2rem;
+                font-weight: 500;
+                line-height: 1.25;
+                a{
+                    color: #428bca;
+                    cursor: pointer;
+                    text-decoration: none;
+                    &:hover{
+                        color: #dcf836;
+                    }
+                }
+            }
+            .btn-list{
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                .btn-share{
+                    font-size: 1rem;
+                    background-color: #3e56c4;
+                    width: 100px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    gap:10px;
+                    margin-bottom: 1em;
+                    &:hover{
+                        background-color: #002fff;
+                    }
+                }
+                .btn-addList{
+                    font-size: 1rem;
+                    width: 120px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    gap:10px;
+                    border: 1px solid white;
+                    background-color: #00555180;
+                    &:hover{
+                        background-color: #005551;
+                        border: none;
+                    }
+                }
+            }
+            .overview{
+                margin-bottom: 1em;
+                color: #b5b5b5 !important;
+            }
+            .sub, .comment{
+                border-bottom: 1px solid #005551;
+                padding: 10px 0px;
+                .s-title{
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                }
+                .s-content{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 10px;
+                    // border: 1px solid red;
+                    .s-left{
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        .icon-sub{
+                            font-size: 1.2rem;
+                        }
+                        .s-name{
+                            font-size: 1rem;
+                            color: #b5b5b5;
+                        }
+                    }     
+                    .s-btn{   
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        margin-right: 0px;
+                        .s-b-select{
+                            border: 1px solid white;
+                            cursor: pointer;
+                        }
+                        .s-b-selected{
+                            background-color: #b5b5b5;
+                            cursor: pointer;
+                        }
+                        .s-b-like{
+
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                        }
+                        .s-b-dislike{
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                        }
+                        .btn-s{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 40px;
+                            height: 30px;
+                        }
+                    }
+                }
+                .c-content{
+                    height: auto;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                    // gap: 20px;
+                    .left{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        align-items:flex-end;
+                        textarea{
+                            width: 100%;
+                            height: 100px;
+                            border-radius: 5px;
+                            font-size: medium;
+                        }
+                        .btn-send{
+                            width: 50px;
+                            height: 25px;
+                            border: 1px solid white;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            &:hover{
+                                background-color: white;
+                                color: black;
+                            }
+                        }
+                    }
+                    .right{
+                        .list-c{
+                            display: flex;
+                            gap: 10px;
+                            .logo-user{
+                                width: 40px;
+                                height: 40px;
+                                background-color: white;
+                                border-radius: 5px;
+                            }
+                            .c-text{
+                                height: auto;
+                                width: 100%;
+                                background-color: #005551;
+                                border-radius: 5px;
+                                padding: 5px 10px;
+                                margin-bottom: 15px;
+                                .name{
+                                    font-size: 16px;
+                                    font-weight: 600;
+                                }
+                                .c-detail{
+                                    color: #b5b5b5;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+        
     }
 }

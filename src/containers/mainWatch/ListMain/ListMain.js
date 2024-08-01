@@ -33,7 +33,7 @@ function ListMain(props) {
     ))
     const dispatch = useDispatch()
     const fetchMovieList = async () => {
-        let movie = await getMoviesFromDB(typeMovie, `${typeMovie == 'tv' ? "airing_today" : "now_playing"}`, 1, language, 2024)
+        let movie = await getMoviesFromDB(typeMovie, `${typeMovie == 'tv' ? "top_rated" : "now_playing"}`, 1, language, 2024)
         setListMovie(movie)
     }
     useEffect(() => {
@@ -41,6 +41,7 @@ function ListMain(props) {
     }, [language, typeMovie])
     const hanldeWatchMovie = (id) => {
         dispatch(actions.setSideInfo(false))
+        window.scrollTo(0, 0)
         props.history.push(`/${typeMovie}/${id}`)
     }
     return (

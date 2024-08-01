@@ -5,58 +5,38 @@ import '../../components/input/ToogleBtn.scss'
 import * as actions from "../../store/actions";
 import StarRatings from 'react-star-ratings';
 import HomeFooter from '../HomePage/HomeFooter'
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { withRouter } from 'react-router';
-import YouTube from 'react-youtube';
 import Slider from 'react-slick';
-import ReactModal from 'react-modal';
 import HeaderMoviePage from '../Auth/Header/HeaderMoviePage';
 import Menu from '../mainWatch/SideInfo/Menu/Menu';
-import { getContentMovie } from '../../services/movieService';
-
-function TVPage(props) {
+import { getContentMovie, getSeasonDetail } from '../../services/movieService';
+import moment from 'moment/moment';
+import { LANGUAGES } from '../../untils';
+function TVSeason(props) {
     const [infoMovie, setInfoMovie] = useState({
         creditMovie: [],
-        detailMovie: {},
+        detailSeason: {},
     });
+    // const [detailSeason, setDetailSeason] = useState({})
     const [ratingCont, setRatingCont] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [watchVid, setWatchVid] = useState({})
-    const { language, detailMovie, videoMovie, creditMovie, side, typeMovie } = useSelector(state => (
+    const { language, creditMovie, side, typeMovie, detailMovie, detailSeason } = useSelector(state => (
         {
             language: state.app.language,
-            detailMovie: state.movie.detailsMovie,
-            videoMovie: state.movie.videoMovie,
             creditMovie: state.movie.creditMovie,
             side: state.app.side,
-            typeMovie: state.movie.typeMovie
+            typeMovie: state.movie.typeMovie,
+            detailMovie: state.movie.detailsMovie,
+            detailSeason: state.movie.detailSeason
         }
     ))
     const dispatch = useDispatch();
-    // console.log('check', detailMovie.seasons);
     useEffect(() => {
-        document.body.style.overflow = side ? 'hidden' : 'unset';
-    }, [side])
-    useEffect(() => {
-        dispatch(actions.fetchVideoMovie(props.match.params.id, language, 'tv'))
-        dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'tv'))
         dispatch(actions.fetchCreditMovie(props.match.params.id, language, 'tv'))
+        dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'tv'))
+        dispatch(actions.fetchDetailSeason(props.match.params.idSeason, props.match.params.id, language))
         getRating()
     }, [language])
-    const hanldeWatchTVSeason = (id) => {
-        dispatch(actions.setSideInfo(false))
-        props.history.push(`/tv/${props.match.params.id}/season/${id}`)
-        window.scrollTo(0, 0)
-    }
-    const handleOpenModal = (item) => {
-        setShowModal(true);
-        setWatchVid(item);
-        // document.body.style.overflow = 'hidden';
-    }
-    const handleCloseModal = () => {
-        setShowModal(false)
-        // document.body.style.overflow = 'auto';
-    }
     const handleBackHome = () => {
         dispatch(actions.setSideInfo(false))
         props.history.push('/home')
@@ -67,20 +47,39 @@ function TVPage(props) {
             const ratingMovie = listRating.filter((item) => {
                 return item.iso_3166_1 == 'US'
             })
-            // console.log(ratingMovie[0]);
             if (ratingMovie[0] != null) {
                 setRatingCont(ratingMovie[0].rating)
             }
         }
         return ''
     }
-    const getYear = (date) => {
-        if (date != null) {
-            var d = new Date(date).getFullYear()
-            return d + ' -'
-        }
+    const hanldeWatchMovie = () => {
 
     }
+    const checkS = (time) => {
+        if (language == LANGUAGES.EN) {
+            if (time > 1) {
+                return 's'
+            }
+            else {
+                return ''
+            }
+        } else {
+            return ''
+        }
+    }
+    const GetTime = (runtime) => {
+        const m = useIntl().formatMessage({ id: 'dMoviePage.minutes' })
+        const h = useIntl().formatMessage({ id: 'dMoviePage.hours' })
+        if (runtime < 60) {
+            return runtime + ' ' + m + checkS(runtime)
+        } else {
+            let timeHour = moment().startOf('day').add(runtime, 'minutes').format(`hh`);
+            let timeMinute = moment().startOf('day').add(runtime, 'minutes').format(`mm`);
+            return timeHour + ' ' + h + checkS(timeHour) + " " + timeMinute + " " + m + checkS(timeMinute)
+        }
+    }
+
     let settings = {
         speed: 500,
         slidesToShow: 5,
@@ -111,45 +110,7 @@ function TVPage(props) {
             }
         ]
     };
-    let settingsTrailer = {
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        infinite: false,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1400,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                }
-            },
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                }
-            },
-            {
-                breakpoint: 680,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            }
-        ]
-    };
-    let opts = {
-        height: '585',
-        width: '960',
-        playerVars: {
-            autoplay: 1,
-        },
-    }
-    let year = new Date(detailMovie.first_air_date)
-    let rating = detailMovie.vote_average / 2;
+    // console.log(detailSeason.vote_average);
     return (
         <>
             <div className='container-dMovie'>
@@ -160,25 +121,31 @@ function TVPage(props) {
                     <div className='section-dMovie'>
                         <div className='container sectionMovie'>
                             <div className='column-1-4'>
-                                <div className='poster-movie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${detailMovie.poster_path})` }}></div>
-                                <div className='btn-watch' onClick={() => hanldeWatchTVSeason(1)}><i className="fas fa-play"></i>
+                                <div className='poster-movie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${detailSeason.poster_path})` }}></div>
+                                <div className='btn-watch' onClick={() => hanldeWatchMovie()}><i className="fas fa-play"></i>
                                     <FormattedMessage id='dMoviePage.watch' />
                                 </div>
                             </div>
                             <div className='column-3-4'>
-                                <div className='original-title'><h1>{detailMovie.original_name}</h1></div>
-                                <div className='sub-title'>{detailMovie.name} (<a href='#'>{year.getFullYear()}</a>)</div>
+                                <div className='original-title'><h1>{detailMovie.original_name} - {detailSeason.name}</h1></div>
+                                <div className='sub-title'>
+                                    {detailMovie.name}{' '}
+                                    (<FormattedMessage id='dMoviePage.season' /> {detailSeason.season_number})
+                                    (<a href='#'>{new Date(detailSeason.air_date).getFullYear()}</a>)
+                                </div>
                                 <div className='rating-movie'>
                                     {ratingCont}
                                 </div>
                                 <div className='imdb-movie'>
-                                    {rating && rating &&
+                                    {detailSeason.vote_average / 2 > 0 ?
                                         <StarRatings
-                                            rating={rating}
+                                            rating={detailSeason.vote_average / 2}
                                             starDimension="30px"
                                             starSpacing="2px"
                                             starRatedColor="#07b8a0"
                                         />
+                                        :
+                                        <br />
                                     }
                                 </div>
                                 <div className='level-genres'>
@@ -191,8 +158,8 @@ function TVPage(props) {
                                         </div>
                                     </div>
                                     <div className='list-genres'>
-                                        {detailMovie && detailMovie.genres && detailMovie.genres.length > 0 &&
-                                            detailMovie.genres.map((item, index) => {
+                                        {detailSeason && detailSeason.genres && detailSeason.genres.length > 0 &&
+                                            detailSeason.genres.map((item, index) => {
                                                 return (
                                                     <div className='item-genres'>{item.name}</div>
                                                 )
@@ -209,11 +176,11 @@ function TVPage(props) {
                                     </dd>
                                     <dt> <FormattedMessage id='dMoviePage.release-date' /></dt>
                                     <dd className='csv'>
-                                        <a href='#'>{new Date(detailMovie.first_air_date).toLocaleDateString(language)}</a>
+                                        <a href='#'>{new Date(detailSeason.air_date).toLocaleDateString(language)}</a>
                                     </dd>
                                 </dl>
                                 <div className='overview'>
-                                    {detailMovie.overview}
+                                    {detailSeason.overview}
                                 </div>
                                 <div className='actor'>
                                     {creditMovie && creditMovie.cast && creditMovie.cast.length > 0 &&
@@ -262,56 +229,29 @@ function TVPage(props) {
                                         </Slider>
                                     </div>
                                 </div>
-                                <div className='trailer'>
-                                    {videoMovie && videoMovie.length > 0 &&
-                                        <div className='title-sec'>
-                                            <FormattedMessage id='dMoviePage.trailer' />
-                                        </div>
-                                    }
-                                    <div className='list'>
-                                        <Slider {...settingsTrailer}>
-                                            {videoMovie && videoMovie.length > 0 &&
-                                                videoMovie.map((item, index) => {
-                                                    if (index < 20) {
-                                                        return (
-                                                            <div className='container-list-videoM' onClick={() => handleOpenModal(item)}>
-                                                                <div className='img-video'
-                                                                    style={{ backgroundImage: `url(https://img.youtube.com/vi/${item.key}/mqdefault.jpg)` }}>
-                                                                    <div className='play-video'><i className="fas fa-play" /></div>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                })
-                                            }
-                                        </Slider>
-                                    </div>
-                                </div>
-                                <div className='season'>
+                                <div className='ep'>
                                     <div className='title-sec'>
-                                        <FormattedMessage id='dMoviePage.season' />
+                                        <FormattedMessage id='dMoviePage.ep' />
                                     </div>
                                     <div className='list'>
-                                        {detailMovie && detailMovie.seasons && detailMovie.seasons.length > 0 &&
-                                            detailMovie.seasons.map((item, index) => {
-                                                return (
-                                                    <div className='container-season'>
-                                                        <div className='poster-season' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.poster_path})` }}
-                                                            onClick={() => hanldeWatchTVSeason(item.season_number)}
-                                                        ></div>
-                                                        <div className='content-season'>
-                                                            <div className='season-number'><FormattedMessage id='dMoviePage.part' /> {item.season_number}</div>
-                                                            <div className='detail-season'> {getYear(item.air_date)}  {item.episode_count} <FormattedMessage id='dMoviePage.ep' /></div>
-                                                            {item.air_date == null ?
-                                                                <div className='detail-season'><FormattedMessage id='dMoviePage.non-release' /></div>
-                                                                :
-                                                                <div className='detail-season'> <FormattedMessage id='dMoviePage.part' /> {item.season_number} <FormattedMessage id='dMoviePage.of' /> {detailMovie.name} <FormattedMessage id='dMoviePage.release' /> {item.air_date}</div>
-                                                            }
-
+                                        {detailSeason && detailSeason.episodes && detailSeason.episodes.length > 0 &&
+                                            detailSeason.episodes.map((item, index) => {
+                                                if (item.runtime !== null) {
+                                                    return (
+                                                        <div className='container-ep'>
+                                                            <div className='poster-ep' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.still_path})` }}></div>
+                                                            <div className='content-ep'>
+                                                                <div className='ep-number'><FormattedMessage id='dMoviePage.ep' /> {item.episode_number}: {item.name}</div>
+                                                                {item.air_date == null ?
+                                                                    <div className='detail-ep'><FormattedMessage id='dMoviePage.non-release' /></div>
+                                                                    :
+                                                                    <div className='detail-ep'>{new Date(item.air_date).toLocaleDateString(language)}</div>
+                                                                }
+                                                                <div className='detail-ep'>{GetTime(item.runtime)}</div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                )
-
+                                                    )
+                                                }
                                             })
                                         }
                                     </div>
@@ -320,42 +260,9 @@ function TVPage(props) {
                         </div>
                     </div>
                 </div>
-                {side === true &&
-                    <div className='container-modal' onClick={() => dispatch(actions.setSideInfo(!side))}>
-                    </div>
-                }
-                <div className={side === true ? 'body-modal' : 'body-modal trans'} >
-                    <div className='content-up'>
-                        <div className='btn-menu col-1' onClick={() => dispatch(actions.setSideInfo(!side))} >
-                            <i className="fas fa-bars"></i>
-                        </div>
-                        <div className='name-brand col-4' onClick={() => handleBackHome()}>
-                        </div>
-                    </div>
-                    <div className='content-down'>
-                        <Menu></Menu>
-                    </div>
-                </div>
             </div >
-            <div className='modal'>
-                <ReactModal
-                    isOpen={showModal}
-                    onRequestClose={handleCloseModal}
-                    shouldCloseOnOverlayClick={true}
-                    className="Modal"
-                    overlayClassName="Overlay"
-                >
-                    <div className='close' onClick={handleCloseModal}><i className="fas fa-times"></i></div>
-                    {watchVid && watchVid.key &&
-                        <YouTube
-                            videoId={watchVid.key}
-                            opts={opts}
-                        />
-                    }
-                </ReactModal>
-            </div>
             <HomeFooter />
         </>
     )
 }
-export default withRouter(TVPage);
+export default withRouter(TVSeason);

@@ -19,10 +19,10 @@ function Main(props) {
             <div className='container-main bg-main'>
                 <HeaderMoviePage />
                 <div className='body-main'>
-                    <div className={side == false ? 'side1 bg-side' : 'side1 bg-side on-side'} >
+                    <div className='side1 bg-side' >
                         <SideInfo />
                     </div>
-                    <div className={side == false ? 'content-main bg-main' : 'content-main bg-main on-side-main'}>
+                    <div className='content-main bg-main'>
                         <ListMain />
                     </div>
                     <div className='side2 bg-side'>

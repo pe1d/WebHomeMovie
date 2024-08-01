@@ -28,10 +28,14 @@
         "more-way-sign-in": "or sign in up:"
     },
     "main": {
-        "head": {
-            "movie": "Movie",
+        "header": {
+            "home": "Home",
+            "popular-movie": "Popular",
             "tv-series": "TV Series",
-            "anime": "Anime"
+            "movie": "Movie",
+            "search": "Search anything",
+            "noti": "Notification",
+            "non-noti": "You're all caught up"
         },
         "banner": {
             "btn-watchlist": "Watchlist",
@@ -71,7 +75,7 @@
     "dMoviePage": {
         "watch": "Watch now",
         "hours": "hour",
-        "minutes": "minutes",
+        "minutes": "minute",
         "share": "Share",
         "watchlist": "Watchlist",
         "director": "Director",
@@ -80,6 +84,11 @@
         "release-date": "Release date",
         "actor": "Actors",
         "trailer": "Trailers",
-        "season": "Season"
+        "season": "Season",
+        "part": "Season",
+        "ep": "Episode",
+        "of": "of",
+        "release": "premiered on",
+        "non-release": "There is no official release date yet"
     }
 }

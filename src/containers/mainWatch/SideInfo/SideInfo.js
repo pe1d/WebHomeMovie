@@ -9,11 +9,7 @@ function SideInfo(props) {
     return (
         <>
             <div className='container-side-right'>
-                {props.side == false ?
-                    <SubMenu />
-                    :
-                    <Menu />
-                }
+                <SubMenu />
             </div>
         </>
     )

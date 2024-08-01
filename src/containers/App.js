@@ -14,6 +14,7 @@ import dMoviePage from './Movie/dMoviePage.js';
 import watchMoviePage from './Movie/watchMoviePage.js';
 import Main from './mainWatch/Main/Main.js';
 import TVPage from './TV/TVPage.js';
+import TVSeason from './TV/TVSeason.js';
 function App(props) {
   return (
     <Fragment>
@@ -26,7 +27,8 @@ function App(props) {
               <Route path={path.HOMEPAGE} component={userIsAuthenticated(Main)} />
               <Route path={path.ABOUT} component={userIsNotAuthenticated(About)} />
               <Route path={path.DETAILMOVIE} component={userIsAuthenticated(dMoviePage)} />
-              <Route path={path.DETAILTV} component={userIsAuthenticated(TVPage)} />
+              <Route path={path.DETAILTV} exact component={userIsAuthenticated(TVPage)} />
+              <Route path={path.DETAILSEASONTV} exact component={userIsAuthenticated(TVSeason)} />
               <Route path={path.WATCH} component={userIsAuthenticated(watchMoviePage)} />
             </Switch>
           </div>

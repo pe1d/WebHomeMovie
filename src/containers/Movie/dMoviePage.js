@@ -35,23 +35,27 @@ function DMoviePage(props) {
     ))
     const dispatch = useDispatch();
     useEffect(() => {
-        document.body.style.overflow = side ? 'hidden' : 'unset';
-    }, [side])
-    useEffect(() => {
         dispatch(actions.fetchVideoMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchCreditMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchRecommendMovie(props.match.params.id, language, 'movie'))
+        console.log('check');
     }, [language, props.match.params.id])
     const hanldeWatchMovie = () => {
         dispatch(actions.setSideInfo(false))
         props.history.push(`/wMovie/${props.match.params.id}`)
+        window.scrollTo(0, 0)
     }
-    const checkS = (hour) => {
-        if (language === LANGUAGES.EN) {
-            if (hour > 1) {
+    const checkS = (time) => {
+        if (language == LANGUAGES.EN) {
+            if (time > 1) {
                 return 's'
             }
+            else {
+                return ''
+            }
+        } else {
+            return ''
         }
     }
     const searchCredit = (role) => {
@@ -67,18 +71,10 @@ function DMoviePage(props) {
         setShowModal(true);
         setWatchVid(item);
         document.body.style.overflow = 'hidden';
-        // document.body.style.setProperty('--st', -(document.documentElement.scrollTop) + "px")
-        // document.body.classList.add('noscroll')
     }
     const handleCloseModal = () => {
         setShowModal(false)
-        document.body.style.overflow = 'unset';
-        // document.body.style.removeProperty('--st')
-        // document.body.classList.remove('noscroll')
-    }
-    const handleBackHome = () => {
-        dispatch(actions.setSideInfo(false))
-        props.history.push('/home')
+        document.body.style.overflow = 'auto';
     }
     const hanldeOpenReMovie = (id) => {
         dispatch(actions.setSideInfo(false))
@@ -152,7 +148,7 @@ function DMoviePage(props) {
             autoplay: 1,
         },
     }
-    let year = new Date(detailMovie.release_date || detailMovie.first_air_date)
+    let year = new Date(detailMovie.release_date)
     let timeHour = moment().startOf('day').add(detailMovie.runtime, 'minutes').format(`hh`);
     let timeMinute = moment().startOf('day').add(detailMovie.runtime, 'minutes').format(`mm`);
     let rating = detailMovie.vote_average / 2;
@@ -173,12 +169,12 @@ function DMoviePage(props) {
                             </div>
                             <div className='column-3-4'>
                                 <div className='original-title'><h1>{detailMovie.original_title}</h1></div>
-                                <div className='sub-title'>{detailMovie.title || detailMovie.name} (<a href='#'>{year.getFullYear()}</a>)</div>
+                                <div className='sub-title'>{detailMovie.title} (<a href='#'>{year.getFullYear()}</a>)</div>
                                 <div className='runtime-movie'>
-                                    {timeHour} <FormattedMessage id='dMoviePage.hours' />{checkS(timeHour)} {timeMinute} <FormattedMessage id='dMoviePage.minutes' />
+                                    {timeHour} <FormattedMessage id='dMoviePage.hours' />{checkS(timeHour)} {timeMinute} <FormattedMessage id='dMoviePage.minutes' />{checkS(timeMinute)}
                                 </div>
                                 <div className='imdb-movie'>
-                                    {rating && rating &&
+                                    {rating &&
                                         <StarRatings
                                             rating={rating}
                                             starDimension="30px"
@@ -223,16 +219,18 @@ function DMoviePage(props) {
                                     </dd>
                                     <dt> <FormattedMessage id='dMoviePage.release-date' /></dt>
                                     <dd className='csv'>
-                                        <a href='#'>{detailMovie.release_date}</a>
+                                        <a href='#'>{new Date(detailMovie.release_date).toLocaleDateString(language)}</a>
                                     </dd>
                                 </dl>
                                 <div className='overview'>
                                     {detailMovie.overview}
                                 </div>
                                 <div className='actor'>
-                                    <div className='title-sec'>
-                                        <FormattedMessage id='dMoviePage.actor' />
-                                    </div>
+                                    {creditMovie && creditMovie.cast && creditMovie.cast.length > 0 &&
+                                        <div className='title-sec'>
+                                            <FormattedMessage id='dMoviePage.actor' />
+                                        </div>
+                                    }
                                     <div className='list'>
                                         <Slider {...settings}>
                                             {creditMovie && creditMovie.cast && creditMovie.cast.length > 0 &&
@@ -318,22 +316,6 @@ function DMoviePage(props) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                {side === true &&
-                    <div className='container-modal' onClick={() => dispatch(actions.setSideInfo(!side))}>
-                    </div>
-                }
-                <div className={side === true ? 'body-modal' : 'body-modal trans'} >
-                    <div className='content-up'>
-                        <div className='btn-menu col-1' onClick={() => dispatch(actions.setSideInfo(!side))} >
-                            <i className="fas fa-bars"></i>
-                        </div>
-                        <div className='name-brand col-4' onClick={() => handleBackHome()}>
-                        </div>
-                    </div>
-                    <div className='content-down'>
-                        <Menu></Menu>
                     </div>
                 </div>
             </div >

@@ -35,6 +35,9 @@ const actionTypes = Object.freeze({
 
     CHANGE_MOVIE_TYPE: 'CHANGE_MOVIE_TYPE',
 
+    FETCH_DETAIL_TV_SUCCESS: "FETCH_DETAIL_TV_SUCCESS",
+    FETCH_DETAIL_TV_FAIL: "FETCH_DETAIL_TV_FAIL"
+
 })
 
 export default actionTypes;

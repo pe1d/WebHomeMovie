@@ -162,6 +162,85 @@
 .bg-solid{
     background-color: #17181cc5;
 }
+.container-modal{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.664);
+    z-index: 6;
+}
+.body-modal{
+    position: fixed;
+    top: 0px;
+    left: 0px ;
+    height: 100vh !important;
+    width: 200px;
+    background-color: #17181c;
+    padding: 20px 0px;
+    padding-top: 0px;
+    overflow-y: auto;
+    transition: all ease-in-out 0.2s;
+    z-index: 99;
+    overflow-x: hidden;
+    .content-up{
+        height: 80px;
+        width: 200px;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        background-color:#17181c ;
+        z-index: 100;
+        color: white;
+        .btn-menu{
+            font-size: 20px;
+            display:flex ;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 41%;
+            height: 40px;
+            border-radius: 20px;
+            &:hover {
+                color: #07b8a0;
+            }
+        }
+        .name-brand{
+            background-image: url('../../../assets/images/HomeMoviestext.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100px;
+            height: 80px;
+            margin-top: 20px;
+            cursor: pointer;
+        }     
+    }
+    .content-down{
+        position: absolute;
+        top: 80px;
+        padding-top: 0px;
+        width: 100%;
+        height: calc(100% - 80px);
+    }
+}
+.bars{
+    width: 6px;
+    height: 200px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.651);
+    position: absolute;
+    z-index: 20;
+    top: var(--st, 0);
+    right: 0px;
+}
+.noscroll {
+    overflow-y: hidden !important; 
+    scrollbar-gutter: stable !important;
+}
+.trans{
+    left: -200px !important;
+}
 @media only screen and (max-width: 1024px) {
     .menu-movie{
         display: none !important;

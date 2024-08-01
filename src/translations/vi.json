@@ -28,10 +28,13 @@
         "more-way-sign-in": "hoặc đăng nhập với:"
     },
     "main": {
-        "head": {
-            "movie": "Phim lẻ",
+        "header": {
+            "home": "Trang chủ",
+            "popular-movie": "Phim nổi tiếng",
             "tv-series": "Phim bộ",
-            "anime": "Hoạt hình"
+            "movie": "Phim lẻ",
+            "search": "Tìm kiếm",
+            "noti": "Thông báo"
         },
         "banner": {
             "btn-watchlist": "Xem sau",
@@ -80,6 +83,11 @@
         "release-date": "Khởi chiếu",
         "actor": "Diễn viên",
         "trailer": "Trailers",
-        "season": "Mùa"
+        "season": "Mùa",
+        "part": "Phần",
+        "ep": "Tập",
+        "of": "của",
+        "release": "được khởi chiếu vào ngày",
+        "non-release": "Chưa có ngày công chiếu chính thức"
     }
 }

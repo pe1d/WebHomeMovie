@@ -1,4 +1,5 @@
 // import axios from "../axios"
+import axios from 'axios';
 import { ApiKey } from '../untils';
 //popularity.desc
 const getMoviesFromDB = (typeMovie, typeSort, page, language, year) => {
@@ -149,7 +150,7 @@ const getContentMovie = (id, typeMovie) => {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGM3ODJmNjFhZWViZWFkNTJkOGNiMGZkMDI2YzBmNSIsInN1YiI6IjY2MTdmOWFkZTI5NWI0MDE3ZGFmYTI4NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JVW04mo4eC1d8cXUUDD9C_24mRnpbFLUqg0HvViAZ6g'
+                    Authorization: `Bearer ${ApiKey.TokenAuth}`
                 }
             };
 
@@ -162,9 +163,36 @@ const getContentMovie = (id, typeMovie) => {
         }
     })
 }
+const getSeasonDetail = (idSeason, idTV, language) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const fetch = require('node-fetch');
+
+            const url = `https://api.themoviedb.org/3/tv/${idTV}/season/${idSeason}?language=${language}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${ApiKey.TokenAuth}`
+                }
+            };
+
+            fetch(url, options)
+                .then(res => res.json())
+                .then(json => resolve(json))
+                .catch(err => console.error('error:' + err));
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+const getMovieWatch = (slug) => {
+    return axios.get(`https://ophim1.com/phim/${slug}`)
+}
 export {
     getMoviesFromDB, getDetailMovieFromDB,
     getVideoMovieFromDB, getGenresMovie,
     getCreditMovie, getReconmmendMovie,
-    getContentMovie
+    getContentMovie, getSeasonDetail,
+    getMovieWatch
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './About.scss'
 import * as actions from "../../store/actions";
 import { LANGUAGES } from '../../untils'
@@ -8,7 +8,10 @@ import HomeFooter from '../HomePage/HomeFooter';
 import DetailAbout from '../../components/About/DetailAbout';
 function About(props) {
     const [inputEmail, setInputEmail] = useState('');
-    const { language } = props;
+    const { language } = useSelector(state => ({
+        language: state.app.language,
+    }));
+    const dispatch = useDispatch()
     const [background, setBackground] = useState('header-about')
     useEffect(() => {
         const handleScroll = () => {
@@ -23,7 +26,7 @@ function About(props) {
         return () => { window.removeEventListener("scroll", handleScroll, true) }
     }, [])
     const changeLanguage = (language) => {
-        props.changeLanguageAppRedux(language)
+        dispatch(actions.changeLanguageApp(language))
     }
     const hanldeLogin = () => {
         props.history.push(`/login`)
@@ -89,17 +92,6 @@ function About(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout()),
-        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
-    };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+export default About;

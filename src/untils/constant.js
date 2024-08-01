@@ -8,6 +8,7 @@ export const path = {
     DETAILMOVIE: '/movie/:id',
     DETAILTV: '/tv/:id',
     WATCH: '/wMovie/:id',
+    DETAILSEASONTV: '/tv/:id/season/:idSeason'
 };
 
 export const LANGUAGES = {

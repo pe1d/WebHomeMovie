@@ -2,7 +2,7 @@ import actionTypes from "./actionTypes";
 import {
     getMoviesFromDB, getDetailMovieFromDB, getVideoMovieFromDB,
     getGenresMovie, getCreditMovie,
-    getReconmmendMovie
+    getReconmmendMovie, getSeasonDetail
 } from "../../services/movieService";
 
 export const fetchMovie = (typeSort, page, language, year) => {
@@ -148,6 +148,30 @@ export const fetchRecommendMovieSuccess = (res) => ({
 })
 export const fetchRecommendMovieFail = () => ({
     type: actionTypes.FETCH_RECOMMEND_MOVIE_FAIL,
+})
+//detail season
+export const fetchDetailSeason = (idSeason, idTV, language) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getSeasonDetail(idSeason, idTV, language)
+            console.log("Check res: ", res);
+            if (res) {
+                dispatch(fetchDetailSeasonSuccess(res))
+            } else {
+                dispatch(fetchDetailSeasonFail())
+            }
+        } catch (e) {
+            console.log("fetchDetailSeasonFail code error: ", e);
+            dispatch(fetchCreditMovieFail())
+        }
+    }
+}
+export const fetchDetailSeasonSuccess = (res) => ({
+    type: actionTypes.FETCH_DETAIL_TV_SUCCESS,
+    data: res
+})
+export const fetchDetailSeasonFail = () => ({
+    type: actionTypes.FETCH_DETAIL_TV_FAIL,
 })
 //Set Type
 export const setTypeMovie = (typeMovie) => ({

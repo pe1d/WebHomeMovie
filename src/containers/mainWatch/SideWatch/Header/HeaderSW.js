@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './HeaderSW.scss'
+import { FormattedMessage } from 'react-intl';
 
 function HeaderSW(props) {
     const [noticeList, setNoticeList] = useState([
@@ -21,7 +22,7 @@ function HeaderSW(props) {
     })
     const [modal, setModal] = useState(false)
     useEffect(() => {
-        document.body.style.overflow = modal ? 'hidden' : 'unset';
+        document.body.style.overflow = modal ? 'hidden' : 'auto';
     }, [modal])
     const handleDeleteNotice = (noti, event) => {
         event.stopPropagation();
@@ -55,7 +56,7 @@ function HeaderSW(props) {
                 <div className={modal === true ? 'container-noti' : 'container-noti off-noti'}>
                     <div className='header-noti'>
                         <div className='name-header'>
-                            Thông báo
+                            <FormattedMessage id='main.header.noti' />
                         </div>
                         <div className='settings-header'>
                             <i className="fas fa-cog"></i>
@@ -83,7 +84,7 @@ function HeaderSW(props) {
                                 )
                             })
                             :
-                            <div className='none'>Không còn thông báo</div>
+                            <div className='none'><FormattedMessage id='main.header.non-noti' /></div>
                         }
                     </div>
                 </div>
