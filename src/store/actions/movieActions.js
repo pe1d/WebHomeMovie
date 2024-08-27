@@ -32,6 +32,7 @@ export const fetchMovieFail = () => ({
 export const fetchVideoMovie = (id, language, typeMovie) => {
     return async (dispatch, getState) => {
         try {
+
             let res = await getVideoMovieFromDB(id, language, typeMovie)
             // console.log("check res", res);
             if (res) {

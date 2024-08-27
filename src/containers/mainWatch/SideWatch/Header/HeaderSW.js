@@ -20,6 +20,7 @@ function HeaderSW(props) {
         userName: '',
         avatar: ''
     })
+    const [boxInfo, setBoxInfo] = useState(false)
     const [modal, setModal] = useState(false)
     useEffect(() => {
         document.body.style.overflow = modal ? 'hidden' : 'auto';
@@ -47,6 +48,14 @@ function HeaderSW(props) {
             return e.status == 'N'
         }).length;
         return allNotice
+    }
+    const handleMore = () => {
+        if (modal === true) {
+            setModal(false);
+        } else {
+            setBoxInfo(!boxInfo)
+        }
+
     }
     return (
         <>
@@ -91,13 +100,57 @@ function HeaderSW(props) {
 
             </div>
             <div className='user'>
-                <div className='name'>Xuan Diep</div>
+                <div className='name'>Xuan Diep
+
+                </div>
                 <div className='more-info'><i class="fas fa-caret-down"></i></div>
-                <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }}>
+                <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }} onClick={() => handleMore()}>
+                    <div className={boxInfo === true ? 'box-user' : 'box-user d-none'}>
+                        <div className='header-b-u'>
+                            <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }}></div>
+                            <div className='content-h-b-u'>
+                                <div className='name-b-u'>
+                                    Xuan Diep
+                                </div>
+                                <div className='id'>
+                                    @id
+                                </div>
+                                <div className='info'><a href='#'>Xem tài khoản</a></div>
+                            </div>
+                        </div>
+                        <div className='section-b-u'>
+                            <div className='row-s-u'>
+                                <div className='icon'><i className="fas fa-users"></i></div>
+                                Chuyển người dùng
+                            </div>
+                            <div className='row-s-u'>
+                                <div className='icon'><i className="fas fa-sign-out-alt"></i> </div>
+
+                                Đăng xuất
+                            </div>
+
+
+                        </div>
+                        <div className='section-b-u'>
+                            <div className='row-s-u'>
+                                <div className='icon'><i className="fas fa-heart"></i></div>
+                                Phim yêu thích
+                            </div>
+                            <div className='row-s-u'>
+                                <div className='icon'><i className="fas fa-box"></i> </div>
+                                Tiếp tục xem
+                            </div>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
             {modal === true &&
                 <div className='background-noti' onClick={() => setModal(false)}></div>
+            }
+            {boxInfo === true &&
+                <div className='background-noti' onClick={() => setBoxInfo(false)}></div>
             }
 
         </>

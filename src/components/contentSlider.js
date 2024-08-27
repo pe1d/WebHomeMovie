@@ -30,10 +30,17 @@ function ContentSilder(props) {
                 }
             },
             {
-                breakpoint: 1040,
+                breakpoint: 860,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 580,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
                 }
             },
         ]

@@ -245,16 +245,22 @@
     .menu-movie{
         display: none !important;
     }
-    .name-brand{
-        display: none;
-    }
+    // .name-brand{
+    //     display: none;
+    // }
     .header-search{
         .form-input{
-            width: 200px !important;
+            width: 300px !important;
         }
     }
-    .btn-noti .name .more-info{
-        display: none !important;
+    .content-left{
+        width: 30% !important;
+    }
+    .content-center{
+        width: 45% !important;
+    }
+    .content-right{
+        width: 25% !important;
     }
 }
 

@@ -34,7 +34,8 @@
             "tv-series": "Phim bộ",
             "movie": "Phim lẻ",
             "search": "Tìm kiếm",
-            "noti": "Thông báo"
+            "noti": "Thông báo",
+            "non-noti": "Không còn thông báo nào cả!!"
         },
         "banner": {
             "btn-watchlist": "Xem sau",
@@ -89,5 +90,16 @@
         "of": "của",
         "release": "được khởi chiếu vào ngày",
         "non-release": "Chưa có ngày công chiếu chính thức"
+    },
+    "wMovie": {
+        "subtitle": "Phụ đề",
+        "comment": "Đánh giá",
+        "enter-comment": "Nhập bình luận.........",
+        "send": "Gửi",
+        "no": "Không",
+        "yes": "Có",
+        "continue": "Tiếp tục xem tại: ",
+        "minute": "Phút",
+        "second": "giây"
     }
 }

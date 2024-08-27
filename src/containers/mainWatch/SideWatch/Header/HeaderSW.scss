@@ -157,6 +157,50 @@
         height: 40px;
         border-radius: 10px;
         background-color: white;
+        position: relative;
+        .box-user{
+            width: 250px;
+            height: auto;
+            position: absolute;
+            background-color: #32343a;
+            top: 0px;
+            right: 0px;
+            margin-top: 40px;
+            z-index: 5;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            .header-b-u{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 1rem;
+                gap: 20px;
+                .logo{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 10px;
+                    background-color: white;
+                }
+            }
+            .section-b-u{
+                border-top: 1px solid #535353;
+                height: auto;
+                padding: 1rem;
+                .row-s-u{
+                    margin-bottom: 5px;
+                    display: flex;
+                    cursor: pointer;
+                    .icon{
+                        width: 40px;
+                        text-align: center;
+                    }
+                    .text{
+
+                    }
+                }
+            }
+            
+        }
     }
 }
 .background-noti{
@@ -167,6 +211,7 @@
     height: 100vh;
     width: 100%;
 }
+
 @media only screen and (max-width: 480px) {
     .btn-noti {
         display: none !important;

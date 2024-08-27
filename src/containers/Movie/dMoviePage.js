@@ -13,7 +13,6 @@ import Slider from 'react-slick';
 import moment from 'moment/moment';
 import ReactModal from 'react-modal';
 import HeaderMoviePage from '../Auth/Header/HeaderMoviePage';
-import Menu from '../mainWatch/SideInfo/Menu/Menu';
 function DMoviePage(props) {
     const [infoMovie, setInfoMovie] = useState({
         creditMovie: [],
@@ -33,12 +32,14 @@ function DMoviePage(props) {
             recommend: state.movie.recommend
         }
     ))
+    const [director, setDirector] = useState('')
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(actions.fetchVideoMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchDetailMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchCreditMovie(props.match.params.id, language, 'movie'))
         dispatch(actions.fetchRecommendMovie(props.match.params.id, language, 'movie'))
+        searchCredit("Directing")
         console.log('check');
     }, [language, props.match.params.id])
     const hanldeWatchMovie = () => {
@@ -59,13 +60,13 @@ function DMoviePage(props) {
         }
     }
     const searchCredit = (role) => {
-        let director = ''
+        let direc = ''
         if (creditMovie && creditMovie.crew && creditMovie.crew.length > 0) {
-            director = creditMovie.crew.find((e) => {
+            direc = creditMovie.crew.find((e) => {
                 return e.department === role
             })
         }
-        return director.name
+        direc && direc.name && setDirector(direc.name)
     }
     const handleOpenModal = (item) => {
         setShowModal(true);
@@ -207,11 +208,11 @@ function DMoviePage(props) {
                                 <dl className='info-movie'>
                                     <dt> <FormattedMessage id='dMoviePage.director' /></dt>
                                     <dd className='csv'>
-                                        <a href='#'>{searchCredit("Directing")}</a>
+                                        <a href='#'>{director}</a>
                                     </dd>
                                     <dt> <FormattedMessage id='dMoviePage.writer' /></dt>
                                     <dd className='csv'>
-                                        <a href='#'>{searchCredit("Directing")}</a>
+                                        <a href='#'>{director}</a>
                                     </dd>
                                     <dt> <FormattedMessage id='dMoviePage.nation' /></dt>
                                     <dd className='csv'>

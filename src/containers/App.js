@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
-import { ToastContainer } from 'react-toastify';
 import { path } from '../untils'
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 import Login from '../containers/Auth/Login.js'
@@ -15,6 +14,7 @@ import watchMoviePage from './Movie/watchMoviePage.js';
 import Main from './mainWatch/Main/Main.js';
 import TVPage from './TV/TVPage.js';
 import TVSeason from './TV/TVSeason.js';
+import { ToastContainer } from 'react-toastify';
 function App(props) {
   return (
     <Fragment>
@@ -32,21 +32,9 @@ function App(props) {
               <Route path={path.WATCH} component={userIsAuthenticated(watchMoviePage)} />
             </Switch>
           </div>
-
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
         </div>
       </Router>
+
     </Fragment>
   )
 }

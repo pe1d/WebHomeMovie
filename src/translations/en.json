@@ -90,5 +90,16 @@
         "of": "of",
         "release": "premiered on",
         "non-release": "There is no official release date yet"
+    },
+    "wMovie": {
+        "subtitle": "Subtitle",
+        "comment": "Comment",
+        "enter-comment": "Write your comment.........",
+        "send": "Send",
+        "no": "Cancel",
+        "yes": "Yes",
+        "continue": "Continue watch movie at: ",
+        "minute": "minutes",
+        "second": "second"
     }
 }
