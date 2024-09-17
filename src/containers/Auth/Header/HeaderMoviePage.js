@@ -8,13 +8,14 @@ import { withRouter } from 'react-router';
 import HeaderSW from '../../mainWatch/SideWatch/Header/HeaderSW';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Menu from '../../mainWatch/SideInfo/Menu/Menu';
+import { getMovieSearch } from '../../../services/movieService';
+import StarRatings from 'react-star-ratings';
 function HeaderMoviePage(props) {
     const [user, setUser] = useState({
         userName: '',
         avatar: ''
     })
     const [background, setBackground] = useState('headerMoviePage');
-    const [y, setY] = useState(0)
     const { side, language, typeMovie } = useSelector(state => (
         {
             side: state.app.side,
@@ -22,6 +23,8 @@ function HeaderMoviePage(props) {
             typeMovie: state.movie.typeMovie
         }
     ))
+    const [search, setSearch] = useState("");
+    const [searchList, setSearchList] = useState({});
     const dispatch = useDispatch()
     useEffect(() => {
         document.body.style.overflow = side ? 'hidden' : 'scroll';
@@ -37,6 +40,15 @@ function HeaderMoviePage(props) {
         window.addEventListener('scroll', handleScroll, true)
         return () => window.removeEventListener('scroll', handleScroll, true)
     }, [])
+    useEffect(async () => {
+        // console.log(search);
+        if (search !== "") {
+            const searchList = await getMovieSearch(search, language);
+            console.log(searchList);
+            setSearchList(searchList);
+        }
+        // console.log(search);
+    }, [search])
     const handleBackHome = () => {
         dispatch(actions.setSideInfo(false))
         props.history.push('/home')
@@ -49,6 +61,10 @@ function HeaderMoviePage(props) {
     }
     const getScrollY = () => {
         return window.screenY
+    }
+    const hanldeWatchMovie = (id, type) => {
+        // alert('Movie id: ' + id)
+        props.history.push(`/${type}/${id}`)
     }
     return (
         <>
@@ -86,11 +102,47 @@ function HeaderMoviePage(props) {
                         </div>
                         <div className='header-search'>
                             <i class="fa fa-search"></i>
-                            <input type="text" className="form-control form-input" placeholder={useIntl().formatMessage({ id: 'main.header.search' })} />
+                            <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} className="form-control form-input" placeholder={useIntl().formatMessage({ id: 'main.header.search' })} />
                             <span className="left-pan"><i class="fa fa-microphone"></i></span>
+                            <div className={search === "" ? 'box-search none' : 'box-search'}>
+                                {searchList && searchList.results && searchList.results.length > 0 &&
+                                    searchList.results.map((item, index) => {
+                                        const vote_average = item.vote_average / 2;
+                                        if (vote_average !== NaN) {
+                                            return (
+                                                <div className='section-search' onClick={() => hanldeWatchMovie(item.id, item.media_type)}>
+                                                    {!item.poster_path ?
+                                                        <div className='non-logo'>
+                                                            <i className="fas fa-image"></i>
+                                                        </div>
+                                                        :
+                                                        <div className='logo' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${item.poster_path})` }}>
+                                                        </div>
+                                                    }
+                                                    <div className='info-movie'>
+                                                        <div className='title-i'>
+                                                            {item.title && item.title.length > 38 ? `${item.title.substring(0, 38)}...` : item.title}
+                                                            {item.name && item.name.length > 38 ? `${item.name.substring(0, 38)}...` : item.name}
+                                                        </div>
+                                                        {/* <div className='check'> {vote_average}</div> */}
+                                                        {vote_average && vote_average != NaN &&
+                                                            <StarRatings
+                                                                rating={vote_average}
+                                                                starDimension="20px"
+                                                                starSpacing="2px"
+                                                                starRatedColor="#07b8a0"
+                                                            />
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div className='content-right'>
                     <HeaderSW />

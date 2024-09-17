@@ -46,7 +46,29 @@
                     }
                 }
             }   
+            .sign-other{
+                .fab{
+                    font-size: 20px;
+                }
+            }
+            
         }
         
     }
+}
+.register{
+    text-decoration: underline;
+    color: #069380;
+    cursor: pointer !important;
+    &:hover{
+        color: #07b8a0;
+    }
+}
+.top-c{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0.5rem;
 }

@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import './Menu.scss'
 import './SubMenu.scss'
 import * as actions from "../../../../store/actions";
 import { LANGUAGES } from '../../../../untils';
 import { FormattedMessage } from 'react-intl';
 function SubMenu(props) {
+    const dispatch = useDispatch();
+
     return (
         <>
             <div className='menu'>
@@ -57,7 +59,7 @@ function SubMenu(props) {
                                     <FormattedMessage id='sider-info.settings' />
                                 </div>
                             </li>
-                            <li className='sub-li on' onClick={props.processLogout}>
+                            <li className='sub-li on' onClick={() => dispatch(actions.processLogout())}>
                                 <div className="icon"  >
                                     <i className="fas fa-sign-out-alt"></i>
                                 </div>
@@ -72,15 +74,6 @@ function SubMenu(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        processLogout: () => dispatch(actions.processLogout())
-    };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubMenu);
+export default SubMenu;

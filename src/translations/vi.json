@@ -27,6 +27,15 @@
         "reg": "Đăng ký",
         "more-way-sign-in": "hoặc đăng nhập với:"
     },
+    "register": {
+        "title": "Đăng ký",
+        "input-email-title": "Địa chỉ email",
+        "placeholder-email": "Nhập địa chỉ email",
+        "input-password-title": "Mật khẩu",
+        "placeholder-password": "Nhập mật khẩu",
+        "re-pass": "Nhập lại mật khẩu",
+        "btn-reg": "Đăng ký"
+    },
     "main": {
         "header": {
             "home": "Trang chủ",

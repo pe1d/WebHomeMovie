@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Component, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { push } from "connected-react-router";
 
 import * as actions from "../../store/actions";
 
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import HomeFooter from '../HomePage/HomeFooter';
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-function Login(props) {
+function Register(props) {
     const [user, setUser] = useState(
         {
             userName: '',
-            password: ''
+            password: '',
+            rePass: '',
         }
     )
-    const { isLoggedIn, userInfo } = useSelector(state => ({
-        isLoggedIn: state.user.isLoggedIn,
-        userInfo: state.user.userInfo
-    }));
     const [errMessage, setErrMessage] = useState('')
     const dispatch = useDispatch()
-    const handleLogin = () => {
+    const handleReg = () => {
         setErrMessage('')
-        //console.log('Username: ', user.userName, 'Password: ', user.password)
+        console.log('Username: ', user.userName, 'Password: ', user.password, user.rePass)
+        if (user.password !== user.rePass) {
+            console.log("Error");
+
+            setErrMessage("Hai mật khẩu không trùng khớp. Vui lòng nhập lại!");
+            return;
+        }
         try {
-            console.log("check user:", user);
             dispatch(actions.userLoginSuccess(user))
         } catch (error) {
             if (error.response) {
@@ -36,28 +38,25 @@ function Login(props) {
             }
         }
     }
-    const handleRes = () => {
-        props.history.push('/register')
-    }
+
     const handlekeydown = (event) => {
         if (event.key === "Enter") {
-            this.handleLogin()
+            this.handleReg()
         }
     }
-    console.log("Check log redux: ", userInfo, isLoggedIn)
     return (
         <>
             <div className='login-background'>
                 <div className='login-container' >
                     <div className='login-content'>
                         <div>
-                            <h1 style={{ textAlign: 'center' }}><FormattedMessage id='login.sign-in' /></h1>
+                            <h1 style={{ textAlign: 'center' }}><FormattedMessage id='register.title' /></h1>
                         </div>
                         <form>
                             <div className="col-12 form-group login-input">
-                                <label className="form-label"><FormattedMessage id='login.input-email-title' /></label>
+                                <label className="form-label"><FormattedMessage id='register.input-email-title' /></label>
                                 <div className="input-group input-group-lg">
-                                    <FormattedMessage id="login.placeholder-email">
+                                    <FormattedMessage id="register.placeholder-email">
                                         {placeholder =>
                                             <input type="email" class="form-control" name='userName' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                                 placeholder={placeholder}
@@ -67,9 +66,9 @@ function Login(props) {
                                 </div>
                             </div>
                             <div className="col-12 form-group login-input">
-                                <label className="form-label"><FormattedMessage id='login.input-password-title' /></label>
+                                <label className="form-label"><FormattedMessage id='register.input-password-title' /></label>
                                 <div className="input-group input-group-lg">
-                                    <FormattedMessage id="login.placeholder-password">
+                                    <FormattedMessage id="register.placeholder-password">
                                         {placeholder =>
                                             <input type="password" class="form-control" name='password' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                                 placeholder={placeholder}
@@ -78,26 +77,30 @@ function Login(props) {
                                     </FormattedMessage>
                                 </div>
                             </div>
+                            <div className="col-12 form-group login-input">
+                                <label className="form-label"><FormattedMessage id='register.re-pass' /></label>
+                                <div className="input-group input-group-lg">
+                                    <FormattedMessage id="register.placeholder-password">
+                                        {placeholder =>
+                                            <input type="password" class="form-control" name='password' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                                                placeholder={placeholder}
+                                                value={user.rePass} onChange={(event) => setUser({ ...user, rePass: event.target.value })} />
+                                        }
+                                    </FormattedMessage>
+                                </div>
+                            </div>
+                            <button type="button" className="btn btn-primary btn-signin"
+                                onClick={() => handleReg()}
+                            >
+                                <FormattedMessage id='register.title' />
+                            </button>
                             <div className='col-12' style={{ color: 'red' }}>
                                 {errMessage}
                             </div>
-                            <button type="button" className="btn btn-primary btn-signin"
-                                onClick={() => handleLogin()}
-                            >
-                                <FormattedMessage id='login.btn-sign-in' />
-                            </button>
-                            <div className="col-12">
-                                <div className="col" style={{ margin: '5px', textAlign: 'center' }}>
-                                    <a href="#!"><FormattedMessage id='login.forgot-password' /></a>
-                                </div>
-                            </div>
                             <div className="text-center ">
-                                <div className='top-c'>
-                                    <FormattedMessage id='login.title-reg' />
-                                    <div className='register' onClick={() => handleRes()}><FormattedMessage id='login.reg' /></div>
-                                </div>
+
                                 <p><FormattedMessage id='login.more-way-sign-in' /></p>
-                                <div className='sign-other'>
+                                <div className='sign-other '>
                                     <button type="button" className="btn btn-link btn-floating mx-1">
                                         <i className="fab fa-facebook-f"></i>
                                     </button>
@@ -124,4 +127,4 @@ function Login(props) {
     )
 }
 
-export default Login;
+export default Register;

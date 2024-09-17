@@ -53,8 +53,9 @@ function TVSeason(props) {
         }
         return ''
     }
-    const hanldeWatchMovie = () => {
-
+    const hanldeWatchMovie = (idSeason, id) => {
+        props.history.push(`${idSeason}/ep/${id}`)
+        window.scrollTo(0, 0)
     }
     const checkS = (time) => {
         if (language == LANGUAGES.EN) {
@@ -122,7 +123,7 @@ function TVSeason(props) {
                         <div className='container sectionMovie'>
                             <div className='column-1-4'>
                                 <div className='poster-movie' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${detailSeason.poster_path})` }}></div>
-                                <div className='btn-watch' onClick={() => hanldeWatchMovie()}><i className="fas fa-play"></i>
+                                <div className='btn-watch' onClick={() => hanldeWatchMovie(detailSeason.season_number, 1)}><i className="fas fa-play"></i>
                                     <FormattedMessage id='dMoviePage.watch' />
                                 </div>
                             </div>

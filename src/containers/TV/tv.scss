@@ -1,0 +1,28 @@
+.list-ep{
+    margin: 0px auto;
+    width: 70%;
+    // border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1%;
+    padding: 10px;
+    .btn-ep{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 40px;
+        border: 1px solid gray;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 5px;
+        &:hover{
+            background-color: #06938075;
+        }
+    }
+    .active{
+        background-color: #069380;
+    }
+}

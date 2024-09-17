@@ -50,16 +50,25 @@ function HeaderSW(props) {
         return allNotice
     }
     const handleMore = () => {
-        if (modal === true) {
+        if (modal == true) {
             setModal(false);
+            setBoxInfo(true)
         } else {
             setBoxInfo(!boxInfo)
         }
 
     }
+    const checkModal = () => {
+        if (boxInfo == true) {
+            setBoxInfo(false);
+            setModal(true);
+            return
+        }
+        setModal(!modal)
+    }
     return (
         <>
-            <div typeof='button' className='btn-noti' onClick={() => setModal(!modal)}>
+            <div typeof='button' className='btn-noti' onClick={() => checkModal()}>
                 < div class="btn-badge pulse-button">{checkNewNoti()}</div>
                 <i className="fas fa-bell" ></i>
                 <div className={modal === true ? 'container-noti' : 'container-noti off-noti'}>
@@ -103,7 +112,7 @@ function HeaderSW(props) {
                 <div className='name'>Xuan Diep
 
                 </div>
-                <div className='more-info'><i class="fas fa-caret-down"></i></div>
+                <div className='more-info' onClick={() => handleMore()}><i class="fas fa-caret-down"></i></div>
                 <div className='logo' style={{ backgroundImage: `url(${user.avatar})` }} onClick={() => handleMore()}>
                     <div className={boxInfo === true ? 'box-user' : 'box-user d-none'}>
                         <div className='header-b-u'>

@@ -189,10 +189,33 @@ const getSeasonDetail = (idSeason, idTV, language) => {
 const getMovieWatch = (slug) => {
     return axios.get(`https://ophim1.com/phim/${slug}`)
 }
+const getMovieSearch = (str, language) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const fetch = require('node-fetch');
+
+            const url = `https://api.themoviedb.org/3/search/multi?query=${str}&include_adult=true&language=${language}&page=1`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${ApiKey.TokenAuth}`
+                }
+            };
+
+            fetch(url, options)
+                .then(res => res.json())
+                .then(json => resolve(json))
+                .catch(err => console.error('error:' + err));
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 export {
     getMoviesFromDB, getDetailMovieFromDB,
     getVideoMovieFromDB, getGenresMovie,
     getCreditMovie, getReconmmendMovie,
     getContentMovie, getSeasonDetail,
-    getMovieWatch
+    getMovieWatch, getMovieSearch
 }

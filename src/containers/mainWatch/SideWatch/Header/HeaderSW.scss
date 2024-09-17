@@ -158,6 +158,8 @@
         border-radius: 10px;
         background-color: white;
         position: relative;
+        z-index: 9;
+        cursor: pointer;
         .box-user{
             width: 250px;
             height: auto;
@@ -190,12 +192,13 @@
                     margin-bottom: 5px;
                     display: flex;
                     cursor: pointer;
+                    &:hover{
+                        color: #00bab3;
+                    }
                     .icon{
                         width: 40px;
                         text-align: center;
-                    }
-                    .text{
-
+                        cursor: pointer;
                     }
                 }
             }

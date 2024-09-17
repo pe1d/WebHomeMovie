@@ -27,6 +27,14 @@
         "reg": "Register",
         "more-way-sign-in": "or sign in up:"
     },
+    "register": {
+        "title": "Register",
+        "input-email-title": "Email address",
+        "placeholder-email": "Your email",
+        "input-password-title": "Password",
+        "placeholder-password": "Your password",
+        "btn-reg": "Register"
+    },
     "main": {
         "header": {
             "home": "Home",

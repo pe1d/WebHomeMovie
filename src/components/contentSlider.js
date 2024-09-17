@@ -50,7 +50,7 @@ function ContentSilder(props) {
         language: state.app.language
     }))
     const fetchMovieList = async () => {
-        let movieList = await getMoviesFromDB(typeMovie, props.typeSort, props.page, props.language, props.year);
+        let movieList = await getMoviesFromDB(typeMovie, props.typeSort, props.page, language, props.year);
         setListMovie(movieList)
     }
     useEffect(() => {

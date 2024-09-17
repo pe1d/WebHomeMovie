@@ -3,12 +3,14 @@ export const path = {
     HOMEPAGE: '/home',
     ABOUT: "/about",
     LOGIN: '/login',
+    REGISTER: '/register',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     DETAILMOVIE: '/movie/:id',
     DETAILTV: '/tv/:id',
     WATCH: '/wMovie/:id',
-    DETAILSEASONTV: '/tv/:id/season/:idSeason'
+    DETAILSEASONTV: '/tv/:id/season/:idSeason',
+    WATCHTV: '/tv/:id/season/:idSeason/ep/:ep',
 };
 
 export const LANGUAGES = {

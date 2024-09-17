@@ -2,32 +2,35 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     isLoggedIn: false,
-    userInfo: ''
+    userInfo: {},
 }
 
-const appReducer = (state = initialState, action) => {
+const useReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_LOGIN_SUCCESS:
+            console.log("check action:", action.userInfo, "check state", state);
             return {
                 ...state,
                 isLoggedIn: true,
-                userInfo: action.userInfo
+                userInfo: action.userInfo,
             }
         case actionTypes.USER_LOGIN_FAIL:
+            console.log("check action fail: ");
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: null
+                userInfo: {}
             }
         case actionTypes.PROCESS_LOGOUT:
+            console.log("check action logout: ");
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: null
+                userInfo: {},
             }
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default useReducer;
