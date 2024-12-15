@@ -36,7 +36,6 @@ function App(props) {
           </div>
         </div>
       </Router>
-
     </Fragment>
   )
 }

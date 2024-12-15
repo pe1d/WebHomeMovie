@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect, useState } from 'react';
+import React, { Component, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import './contentSlider.scss'
 import * as actions from "../store/actions";
@@ -6,59 +6,74 @@ import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
 import StarRatings from 'react-star-ratings';
 import { getMoviesFromDB } from '../services/movieService';
+export const useContainerDimensions = myRef => {
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+
+    useEffect(() => {
+        const getDimensions = () => ({
+            width: myRef.current.offsetWidth,
+            height: myRef.current.offsetHeight
+        })
+
+        const handleResize = () => {
+            setDimensions(getDimensions())
+        }
+        window.addEventListener("resize", handleResize)
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [myRef])
+
+    return dimensions;
+};
+
 function ContentSilder(props) {
     const [listMovie, setListMovie] = useState([])
     const [favor, setFavor] = useState(false)
-    var settings = {
+    const container = useRef(null);
+    const cSize = useContainerDimensions(container)
+    const [settings, setSettings] = useState({
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 5,
-        arrows: false,
-        responsive: [
-            {
-                breakpoint: 1680,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                }
-            },
-            {
-                breakpoint: 1400,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                }
-            },
-            {
-                breakpoint: 860,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                }
-            },
-            {
-                breakpoint: 580,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-        ]
-    };
+        initialSlide: 5,
+        arrows: true,
+    })
     const { language, typeMovie } = useSelector(state => ({
         typeMovie: state.movie.typeMovie,
         language: state.app.language
     }))
-    const fetchMovieList = async () => {
+    const fetchMovieList = useCallback(async () => {
         let movieList = await getMoviesFromDB(typeMovie, props.typeSort, props.page, language, props.year);
         setListMovie(movieList)
+    })
+
+    const checkSettings = (width) => {
+        let i = 0;
+        if (width > 270) {
+            console.log("check i", (width / 270).toFixed(0));
+            i = (width / 270).toFixed(0);
+        }
+        setSettings({ ...settings, slidesToShow: parseInt(i), slidesToScroll: parseInt(i), initialSlide: parseInt(i) })
     }
     useEffect(() => {
+        let inorge = false;
         fetchMovieList()
+        return () => { inorge = true }
     }, [language, typeMovie]);
+    const slider = container.current;
+    // useEffect(() => {
+    //     //console.log(container);
+    //     // console.log(slide.offsetWidth);
+    //     checkSettings(cSize.width)
+    //     console.log("Check size:", cSize.width);
+    //     console.log("Check settings: ", settings);
+
+    // }, [cSize.width])
+
     return (
         <>
-            <div className='content-list-main'>
+            <div className='content-list-main' ref={container}>
                 <div className='name-section-movie'><FormattedMessage id={props.idName} /></div>
                 <Slider {...settings}>
                     {listMovie && listMovie.length > 0 &&
@@ -91,7 +106,6 @@ function ContentSilder(props) {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 )
                         })

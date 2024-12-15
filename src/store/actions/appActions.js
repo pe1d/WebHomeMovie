@@ -11,3 +11,7 @@ export const setSideInfo = (side) => ({
     type: actionTypes.SET_SIDE,
     side: side,
 })
+export const setSubActive = (activeSubMenu) => ({
+    type: actionTypes.SET_MENU,
+    activeSubMenu: activeSubMenu
+})

@@ -202,7 +202,6 @@ function DMoviePage(props) {
                                             })
 
                                         }
-
                                     </div>
                                 </div>
                                 <dl className='info-movie'>

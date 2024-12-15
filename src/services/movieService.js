@@ -212,10 +212,53 @@ const getMovieSearch = (str, language) => {
         }
     })
 }
+const getCountriesMovie = (lang) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const fetch = require('node-fetch');
+
+            const url = `https://api.themoviedb.org/3/configuration/countries?language=${lang}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${ApiKey.TokenAuth}`
+                }
+            };
+
+            fetch(url, options)
+                .then(res => res.json())
+                .then(json => resolve(json))
+                .catch(err => reject('error:' + err));
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+const getDiscoverMovie = (typeMovie, genres, nation, year, time, sort, lang, page) => {
+    return new Promise((resolve, reject) => {
+        const fetch = require('node-fetch');
+
+        const url = `https://api.themoviedb.org/3/discover/${typeMovie}?include_adult=false&include_video=false&language=${lang}&page=${page}&sort_by=${sort}&with_genres=${genres}&with_origin_country=${nation}&with_runtime.gte=${time.GTE}&with_runtime.lte=${time.LTE}&year=${year}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${ApiKey.TokenAuth}`
+            }
+        };
+
+        fetch(url, options)
+            .then(res => res.json())
+            .then(json => resolve(json))
+            .catch(err => reject('error:' + err));
+    })
+}
 export {
     getMoviesFromDB, getDetailMovieFromDB,
     getVideoMovieFromDB, getGenresMovie,
     getCreditMovie, getReconmmendMovie,
     getContentMovie, getSeasonDetail,
-    getMovieWatch, getMovieSearch
+    getMovieWatch, getMovieSearch,
+    getCountriesMovie, getDiscoverMovie
 }

@@ -10,7 +10,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Menu from '../../mainWatch/SideInfo/Menu/Menu';
 import { getMovieSearch } from '../../../services/movieService';
 import StarRatings from 'react-star-ratings';
-function HeaderMoviePage(props) {
+import { Suspense } from 'react';
+const HeaderMoviePage = (props) => {
     const [user, setUser] = useState({
         userName: '',
         avatar: ''
@@ -25,10 +26,10 @@ function HeaderMoviePage(props) {
     ))
     const [search, setSearch] = useState("");
     const [searchList, setSearchList] = useState({});
+    //const searchList = getMovieSearch(search, language);
+    console.log(searchList);
+    document.body.style.overflow = side ? 'hidden' : 'scroll';
     const dispatch = useDispatch()
-    useEffect(() => {
-        document.body.style.overflow = side ? 'hidden' : 'scroll';
-    }, [side])
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY >= 80) {
@@ -58,9 +59,6 @@ function HeaderMoviePage(props) {
         dispatch(actions.setTypeMovie(typeMovieChange))
         window.scrollTo(0, 0)
         handleBackHome()
-    }
-    const getScrollY = () => {
-        return window.screenY
     }
     const hanldeWatchMovie = (id, type) => {
         // alert('Movie id: ' + id)
@@ -93,11 +91,15 @@ function HeaderMoviePage(props) {
                     </div>
                     <div className='content-2'>
                         <div className='languages' style={{ width: '60px', height: '30px' }}>
-                            <div className={language === LANGUAGES.VI ? 'lang-vi active' : 'lang-vi'}>
-                                <span onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.VI))}>VI</span>
+                            <div className={language === LANGUAGES.VI ? 'lang-vi active' : 'lang-vi'}
+                                onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.VI))}
+                            >
+                                <span >VI</span>
                             </div>
-                            <div className={language === LANGUAGES.EN ? 'lang-en active' : 'lang-en'}>
-                                <span onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.EN))}>EN</span>
+                            <div className={language === LANGUAGES.EN ? 'lang-en active' : 'lang-en'}
+                                onClick={() => dispatch(actions.changeLanguageApp(LANGUAGES.EN))}
+                            >
+                                <span>EN</span>
                             </div>
                         </div>
                         <div className='header-search'>

@@ -5,6 +5,7 @@ const initialState = {
     language: 'vi',
     side: false,
     systemMenuPath: '/home/watch',
+    activeSubMenu: 0,
 }
 
 const appReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 side: action.side,
+            }
+        case actionTypes.SET_MENU:
+            return {
+                ...state,
+                activeSubMenu: action.activeSubMenu,
             }
         default:
             return state;

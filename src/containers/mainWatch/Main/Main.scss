@@ -1,8 +1,11 @@
 .container-main{
+    
     .body-main{
         display: flex;
         width: 100%;
         padding-top: 80px;
+        background-color: #17181c;
+        min-height: 100vh;
         .side1{
             width: 5%;
             overflow-y:auto;

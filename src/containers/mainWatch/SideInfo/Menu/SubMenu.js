@@ -1,51 +1,47 @@
 import React, { Component, Fragment } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './Menu.scss'
 import './SubMenu.scss'
 import * as actions from "../../../../store/actions";
 import { LANGUAGES } from '../../../../untils';
 import { FormattedMessage } from 'react-intl';
 function SubMenu(props) {
+    const menu = [
+        { logo: 'fas fa-home', text: 'sider-info.home' },
+        { logo: 'fab fa-discourse icon', text: 'sider-info.discover' },
+        { logo: 'fas fa-trophy', text: 'sider-info.news' },
+        { logo: 'fas fa-user', text: 'sider-info.celeb' },
+    ]
+    const { activeSubMenu } = useSelector(state => ({
+        activeSubMenu: state.app.activeSubMenu,
+    }))
     const dispatch = useDispatch();
+    const handleClickSubMenu = (index) => {
 
+        dispatch(actions.setSubActive(index))
+    }
+    // console.log("check active", activeSubMenu);
     return (
         <>
             <div className='menu'>
                 <ul className="main-menu">
                     <li className="title-menu">
                         <ul className='sub-menu'>
-                            <li className='sub-li active on'>
-                                <div className='icon'>
-                                    <i className="fas fa-home"></i>
-                                </div>
-                                <div className='text'>
-                                    <FormattedMessage id='sider-info.home' />
-                                </div>
-                            </li>
-                            <li className='sub-li on'>
-                                <div className='icon'>
-                                    <i className="fab fa-discourse icon"></i>
-                                </div>
-                                <div className='text'>
-                                    <FormattedMessage id='sider-info.discover' />
-                                </div>
-                            </li>
-                            <li className='sub-li on'>
-                                <div className='icon'>
-                                    <i className="fas fa-trophy"></i>
-                                </div>
-                                <div className='text'>
-                                    <FormattedMessage id='sider-info.award' />
-                                </div>
-                            </li>
-                            <li className='sub-li on'>
-                                <div className='icon'>
-                                    <i className="fas fa-user"></i>
-                                </div>
-                                <div className='text'>
-                                    <FormattedMessage id='sider-info.celeb' />
-                                </div>
-                            </li>
+                            {menu && menu.length > 0 &&
+                                menu.map((item, index) => {
+                                    return (
+                                        <li className={activeSubMenu == index ? 'sub-li on active' : 'sub-li on'} key={index} onClick={() => handleClickSubMenu(index)}>
+                                            <div className='icon'>
+                                                <i className={item.logo}></i>
+                                            </div>
+                                            <div className='text'>
+                                                <FormattedMessage id={item.text} />
+                                            </div>
+                                        </li>
+                                    )
+
+                                })
+                            }
                         </ul>
                     </li>
                     <li className="title-menu">

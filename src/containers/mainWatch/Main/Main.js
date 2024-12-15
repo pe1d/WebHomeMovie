@@ -6,11 +6,14 @@ import SideInfo from '../SideInfo/SideInfo';
 import ListMain from '../ListMain/ListMain';
 import SideWatch from '../SideWatch/SideWatch';
 import HeaderMoviePage from '../../Auth/Header/HeaderMoviePage.js';
+import DiscoverPage from '../DiscoverPage/DiscoverPage.js';
+import ActorPage from '../ActorPage/ActorPage.js';
 function Main(props) {
-    const { side, language } = useSelector(state => (
+    const { side, language, activeSubMenu } = useSelector(state => (
         {
             side: state.app.side,
             language: state.app.language,
+            activeSubMenu: state.app.activeSubMenu,
         }
     ))
     const dispatch = useDispatch()
@@ -23,7 +26,9 @@ function Main(props) {
                         <SideInfo />
                     </div>
                     <div className='content-main bg-main'>
-                        <ListMain />
+                        {activeSubMenu == 0 && <ListMain />}
+                        {activeSubMenu == 1 && <DiscoverPage />}
+                        {activeSubMenu == 3 && <ActorPage />}
                     </div>
                     <div className='side2 bg-side'>
                         <SideWatch />
