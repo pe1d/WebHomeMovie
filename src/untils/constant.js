@@ -33,3 +33,9 @@ export const YesNoObj = {
 export const ApiKey = {
     TokenAuth: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGM3ODJmNjFhZWViZWFkNTJkOGNiMGZkMDI2YzBmNSIsInN1YiI6IjY2MTdmOWFkZTI5NWI0MDE3ZGFmYTI4NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JVW04mo4eC1d8cXUUDD9C_24mRnpbFLUqg0HvViAZ6g'
 }
+export const sizeResponsive = {
+    sSize:{width:1280, height:1024},
+    smSize:{width:1366, height:768},
+    mSize:{width:1440, height:900},
+    lSize:{width:1800, height:1080}
+}

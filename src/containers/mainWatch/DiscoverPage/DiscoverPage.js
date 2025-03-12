@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, Suspense } from 'react';
+import React, { useRef, useEffect, useState, Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './DiscoverPage.scss'
 import * as actions from "../../../store/actions";
@@ -52,9 +52,8 @@ const PaginationPage = ({ currentPage, total_pages, discover, setCurrentPage }) 
     useEffect(() => {
         checkListPage();
     }, [currentPage, total_pages])
-    const checkListPage = () => {
+    const checkListPage = useCallback(() => {
         if (total_pages > 500) {
-            console.log("Check total:", total);
             setTotal(500);
         } else {
             setTotal(total_pages)
@@ -69,24 +68,21 @@ const PaginationPage = ({ currentPage, total_pages, discover, setCurrentPage }) 
             setListPage(list)
         }
         if (currentPage - 4 <= 0 && total_pages > 5) {
-            console.log("check 1", currentPage);
             setListPage([2, 3, 4, 5]);
         }
         if (total - currentPage <= 4 && total_pages > 5) {
-            console.log("check 2", currentPage);
             for (let i = total - 5; i < total; i++) {
                 list.push(i);
             }
             setListPage(list);
         }
         if (total - currentPage > 4 && currentPage - 4 > 0 && total > 5) {
-            console.log("check 3", currentPage);
             for (let i = currentPage - 2; i <= currentPage + 2; i++) {
                 list.push(i);
             }
             setListPage(list)
         }
-    }
+    },[total_pages,currentPage])
     return (
         <>
             <div className={currentPage === 1 ? 'page-num display-c-c active' : 'page-num display-c-c'} onClick={() => setCurrentPage({ ...discover, page: 1 })}>1</div>
@@ -171,7 +167,6 @@ function DiscoverPage(props) {
     })
     const [listMovie, setListMovie] = useState([])
     const [favor, setFavor] = useState(false)
-    const isOnline = useOnlineStatus();
     const { language, typeMovie, genresMovie } = useSelector(state => (
         {
             language: state.app.language,
@@ -224,13 +219,9 @@ function DiscoverPage(props) {
             return gen;
         }
     }
-    //console.log("check genres: ", genresMovie);
-    console.log("check list movie: ", listMovie);
     return (
         <>
-
             <div className='container-dis-page text-white'>
-                {isOnline ? '✅ Online' : '❌ Disconnected'}
                 <div className='content-search'>
                     <div className='option-search'>
                         <label for="type-movie">Loại phim:</label>
@@ -355,7 +346,7 @@ function DiscoverPage(props) {
                         </div>
                     }
                 </Suspense >
-                {optionView == true &&
+                {optionView === true &&
                     <div className='content-view-list'>
                         {listMovie && listMovie.results && listMovie.results.length > 0 &&
                             listMovie.results.map((item, index) => {

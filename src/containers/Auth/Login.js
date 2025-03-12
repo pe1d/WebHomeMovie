@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as actions from "../../store/actions";
-
+import axios from 'axios';
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import HomeFooter from '../HomePage/HomeFooter';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { handleGetUserByUserName, handleLoginApi } from '../../services/userService';
 function Login(props) {
     const [user, setUser] = useState(
         {
-            userName: '',
+            username: '',
             password: ''
         }
     )
@@ -20,18 +21,26 @@ function Login(props) {
     }));
     const [errMessage, setErrMessage] = useState('')
     const dispatch = useDispatch()
-    const handleLogin = () => {
-        setErrMessage('')
-        //console.log('Username: ', user.userName, 'Password: ', user.password)
+    const handleLogin = async () => {
+        setErrMessage('')        
         try {
             console.log("check user:", user);
-            dispatch(actions.userLoginSuccess(user))
+            const isLogin = await handleLoginApi(user);
+            console.log('Check:isLogin: ',isLogin);
+            
+            if(isLogin.result === "success"){
+                const userData = await handleGetUserByUserName(user.username);
+                dispatch(actions.userLoginSuccess(userData))
+            } else if(isLogin.result === "fail"){
+                setErrMessage("Tài khoản hoặc mật khẩu không đúng!");
+                setTimeout(() => {
+                    setErrMessage("");
+                }, 3000);
+            }
         } catch (error) {
             if (error.response) {
                 if (error.response.data) {
-                    this.setState({
-                        errMessage: error.response.data.message
-                    })
+                    setErrMessage(error.response.data.message) 
                 }
             }
         }
@@ -59,9 +68,9 @@ function Login(props) {
                                 <div className="input-group input-group-lg">
                                     <FormattedMessage id="login.placeholder-email">
                                         {placeholder =>
-                                            <input type="email" class="form-control" name='userName' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                                            <input type="email" class="form-control" name='username' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                                 placeholder={placeholder}
-                                                value={user.userName} onChange={(event) => setUser({ ...user, userName: event.target.value })} />
+                                                value={user.username} onChange={(event) => setUser({ ...user, username: event.target.value })} />
                                         }
                                     </FormattedMessage>
                                 </div>

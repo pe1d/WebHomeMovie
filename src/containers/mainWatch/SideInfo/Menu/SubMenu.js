@@ -5,19 +5,19 @@ import './SubMenu.scss'
 import * as actions from "../../../../store/actions";
 import { LANGUAGES } from '../../../../untils';
 import { FormattedMessage } from 'react-intl';
+import { subMenu } from './constant/contanst';
 function SubMenu(props) {
     const menu = [
-        { logo: 'fas fa-home', text: 'sider-info.home' },
-        { logo: 'fab fa-discourse icon', text: 'sider-info.discover' },
-        { logo: 'fas fa-trophy', text: 'sider-info.news' },
-        { logo: 'fas fa-user', text: 'sider-info.celeb' },
+        {key:subMenu.MAIN ,logo: 'fas fa-home', text: 'sider-info.home' },
+        {key:subMenu.DISCOVER, logo: 'fab fa-discourse icon', text: 'sider-info.discover' },
+        {key:subMenu.NEWS, logo: 'fas fa-trophy', text: 'sider-info.news' },
+        {key:subMenu.ACTOR, logo: 'fas fa-user', text: 'sider-info.celeb' },
     ]
     const { activeSubMenu } = useSelector(state => ({
         activeSubMenu: state.app.activeSubMenu,
     }))
     const dispatch = useDispatch();
     const handleClickSubMenu = (index) => {
-
         dispatch(actions.setSubActive(index))
     }
     // console.log("check active", activeSubMenu);
@@ -30,7 +30,7 @@ function SubMenu(props) {
                             {menu && menu.length > 0 &&
                                 menu.map((item, index) => {
                                     return (
-                                        <li className={activeSubMenu == index ? 'sub-li on active' : 'sub-li on'} key={index} onClick={() => handleClickSubMenu(index)}>
+                                        <li className={activeSubMenu === index ? 'sub-li on active' : 'sub-li on'} key={item.key} onClick={() => handleClickSubMenu(item.key)}>
                                             <div className='icon'>
                                                 <i className={item.logo}></i>
                                             </div>
